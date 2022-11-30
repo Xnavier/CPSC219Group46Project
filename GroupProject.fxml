@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="603.0" text="Savings">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <HBox prefHeight="68.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" text="Savings Wanted">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <TextField prefHeight="31.0" prefWidth="148.0" promptText="Input desired value">
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Realistic Savings">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <TextField promptText="Value of Realistic Savings">
+               <HBox.margin>
+                  <Insets left="19.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+   </children>
+</VBox>

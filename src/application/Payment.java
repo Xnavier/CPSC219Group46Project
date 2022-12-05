@@ -26,21 +26,24 @@ public class Payment {
 	}
 	
 	public Payment(int dollar, int cent) throws InvalidPaymentException {
-		if (dollar < 0 || cent < 0) {
-		throw new InvalidPaymentException("Amounts cannot be negative. ");
+		if (dollar < 0) {
+		throw new InvalidPaymentException("Dollars must be positive. ");
+		}
+		if (cent > 99 || cent < 0) {
+			throw new InvalidPaymentException("Cents must be between 0 and 99.");
 		}
 		setDollars(dollar);
 		setCents(cent);
 	}
 
-	public int getDollars() {
-		return dollars;
-	}
-
 	public void setDollars(int dollars) {
 		this.dollars = dollars;
 	}
-
+	
+	public int getDollars() {
+		return dollars;
+	}
+	
 	public int getCents() {
 		return cents;
 	}

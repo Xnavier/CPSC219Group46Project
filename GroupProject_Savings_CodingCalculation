@@ -1,4 +1,9 @@
-if (value > 0){
+if (wanted savings < 0){
 errorMessage = String.format("Value must be a positive amount.");
-value = 0
+wanted savings = 0
+}
+
+if (realistic savings < 0){
+errorMessage = String.format("Value must be a positive amount.");
+realistic savings = 0
 }

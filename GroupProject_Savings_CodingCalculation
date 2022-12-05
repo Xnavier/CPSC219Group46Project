@@ -1,0 +1,4 @@
+if (value > 0){
+errorMessage = String.format("Value must be a positive amount.");
+value = 0
+}

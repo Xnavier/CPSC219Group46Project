@@ -17,7 +17,7 @@ public class Main extends Application {
 		try { FXMLLoader loader = new FXMLLoader();
 		VBox root = loader.load(new FileInputStream("src/application/BudgetMainSceneView.fxml"));
 		BudgetCalculatorController controller = (BudgetCalculatorController)loader.getController();
-		controller.applicationStage = primaryStage;
+		controller.appStage = primaryStage;
 		Scene scene = new Scene(root,600,300);
 		
 		primaryStage.setScene(scene);

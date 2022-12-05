@@ -1,6 +1,8 @@
 package app;
 
 import javafx.event.ActionEvent;
+import java.util.*;
+import java.math.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -45,42 +47,36 @@ public class BudgetCalculatorController {
     @FXML
     private Button RecordNumUsersButton;
     
-    
-    float getDollarNumber (String valueEntered) {
-    	
-    	boolean validNumber = true;
-    	for (char c: valueEntered.toCharArray()) {
-    		if ((!Character.isDigit(c))) {
-    			validNumber = false;
-    			invalidValueLabel.setText("" + c + " is not a valid entry. Please re-enter your value.");
-    		}
-    		else if ((!(c == '.'))) {
-    			validNumber = false;
-    		}
-    		float dollarNumber = 0; 
-    		if (validNumber)
-    			dollarNumber = Float.parseFloat(valueEntered);
+ 
     		
     		
-    	
-    	}
-		
-    	
-    }
+    		
+   
     
     
     
-    int totalExpense = 0;
-    
-    
-    void findTotalExpense(Scene mainScene) {
-    	appStage.setScene(mainScene);
-    	totalExpense = 0;
-    	
-    	
-    }
+ 
 
 	
+  public  double getIncome (String valueEntered) {
+    	
+    	boolean validMoney = true;{
+    		
+    	}
+    	
+    	double finBudget = 0.0;
+    	if (validMoney);
+    		return finBudget = Double.parseDouble(valueEntered);
+    	
+    	
+    }
+  
+  
+  	double planExpense = 0.0;
+  	void calculatePlanExpense (Scene mainScene, TextField planExpenseTextField) {
+  		appStage.setScene(mainScene);
+  		planExpense = Double.parseDouble(planExpenseTextField.getText());
+  	}
 	
 	@FXML
 	void getExpenseScene(ActionEvent enterExpenseEvent) {
@@ -115,20 +111,57 @@ public class BudgetCalculatorController {
 
 
 }
+	
+	double income = 0.0;
+	
+	void calculateIncome (Scene mainScene, TextField incomeTextField) {
+		appStage.setScene(mainScene);
+		income = Double.parseDouble(incomeTextField.getText());
+		
+	}
 	@FXML
-	void getIncomeScene (ActionEvent enterIncomeEvent) {
+	void getIncome (ActionEvent enterIncome) {
+		Scene mainScene = appStage.getScene();
+		double finIncome = 0; 
+		
 		
 	VBox incomeBox = new VBox();
 		HBox fullTimeField = new HBox();
 		Label incomeDirectionsLabel = new Label("Enter the approximate amount of money you make from your full time job per month.");
 		TextField fullTimeTextField = new TextField();
-		fullTimeTextField.getText();
 		
-	Button ftDoneButton = new Button("Next");
-	
 		HBox partTimeField = new HBox();
 		Label partTimeDirectionsLabel = new Label ("enter the amount of money you make from any other streams of income.");
+		TextField partTimeTextField = new TextField();
+		
+		Button ptDoneButton = new Button ("Next");
+		
+		
+		Button ftDoneButton = new Button("Next");
+		ftDoneButton.setOnAction(nextEvent -> calculateIncome(mainScene, incomeTextField) );
+		incomeBox.getChildren().addAll(partTimeField, partTimeDirectionsLabel,partTimeTextField);
+	
+	
+		
+		
+		
 		
 	}
 	Scene incomeScene = new Scene(incomeBox); 
+	
+	
+	@FXML
+	void calculateBudget (ActionEvent calculate) {
+		
+		double finBudget = 0.0;
+		
+		finBudget = finBudget + income;
+		finBudget = finBudget - planExpense;
+		finBudget = finBudget -randomExpense;
+		finBudget = finBudget + saveForecast;
+		
+	}
+	
+	
+	
 }

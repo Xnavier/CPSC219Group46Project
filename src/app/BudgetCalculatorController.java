@@ -51,6 +51,15 @@ public class BudgetCalculatorController {
 	    
 	    @FXML 
 	    private Label numUsersLabel;
+	    
+	    @FXML
+	    private Label budgetLabel;
+	    
+	    @FXML
+	    private Button getBudgetButton;
+	    
+	    @FXML 
+	    private Label budgetLabel2;
 
 	    @FXML
 	    void f50808(ActionEvent event) {
@@ -59,10 +68,12 @@ public class BudgetCalculatorController {
 
 	    
 	    
-	
-	    public void recordUserNumber (ActionEvent recordEvent) {
+	int numUser = 0;
+	    public int recordUserNumber (ActionEvent recordEvent) {
 	    	int numUser = Integer.parseInt(NumOfUsersTextField.getText());
 	    	numUsersLabel.setText(String.format("%.2f users",numUser));
+	    	numUsersLabel.setText(""+ numUser);
+			return numUser;
 	    }
     
  
@@ -78,14 +89,14 @@ public class BudgetCalculatorController {
 	
   
   
-  	double expense= 0.0;
-  	public void calculateExpense (Scene mainScene, Label expenseLabel) {
+  	int expense= 0;
+  	public int calculateExpense (Scene mainScene, Label expenseLabel) {
   		appStage.setScene(mainScene);
-  		expense += Integer.parseInt(expenseLabel.getText());
+  		return expense += Integer.parseInt(expenseLabel.getText());
   	}
 	
 	@FXML
-	void getExpense(ActionEvent enterExpenseEvent) {
+	public int getExpense(ActionEvent enterExpenseEvent) {
     	Scene mainScene = appStage.getScene();
     	
     	int finExpense = 0;
@@ -119,6 +130,7 @@ public class BudgetCalculatorController {
     	
     	Button eDoneButton = new Button ("Next");
     	eDoneButton.setOnAction(doneEvent -> calculateExpense(mainScene, expenseLabel));
+		return finExpense;
     	
     	
     	
@@ -147,15 +159,16 @@ public class BudgetCalculatorController {
 
 
 
-	double income = 0.0;
+	int income = 0;
 	
-	public void calculateIncome (Scene mainScene, Label incomeLabel) {
+	public int calculateIncome (Scene mainScene, Label incomeLabel) {
 		appStage.setScene(mainScene);
 		income += Integer.parseInt(incomeLabel.getText());
+		return income;
 		
 	}
 	@FXML
-	void getIncome (ActionEvent enterIncome) {
+	public int getIncome (ActionEvent enterIncome) {
 		Scene mainScene = appStage.getScene();
 		int finIncome = 0; 
 		
@@ -179,6 +192,8 @@ public class BudgetCalculatorController {
 		
 		Button iDoneButton = new Button("Next");
 		iDoneButton.setOnAction(nextEvent -> calculateIncome(mainScene, incomeLabel) );
+		return finIncome;
+		
 		
 	
 		
@@ -186,18 +201,19 @@ public class BudgetCalculatorController {
 		
 		
 	}
-		double savings = 0;
+		int savings = 0;
 
 
 		private Scene mainScene;
-		public void getTotalSavings (Scene mainScene, Label savingsLabel2) {
+		public int getTotalSavings (Scene mainScene, Label savingsLabel2) {
 			appStage.setScene(mainScene);
 			savings =+ Integer.parseInt(savingsLabel2.getText());
+			return savings;
 		
 			
 		}
 	@FXML 
-	void getSavings (ActionEvent enterSavings) {
+	public int getSavings (ActionEvent enterSavings) {
 		
 		VBox savingsBox = new VBox();
 		
@@ -212,6 +228,7 @@ public class BudgetCalculatorController {
 		
 		Button sDoneButton = new Button ("Done");
 		sDoneButton.setOnAction(doneEvent -> getTotalSavings(mainScene, savingsLabel2));
+		return wantedSavingsDollars;
 				
 		
 		
@@ -220,9 +237,14 @@ public class BudgetCalculatorController {
 	
 	}
 		
+	void getFinal(ActionEvent finalCalc) {
 	
-	
-	
+		
+		double budget = income + savings - expense;
+		budget = budget/numUser;
+		
+	System.out.println("Your final budget is :" + budget);
+	}
 		
 
 		

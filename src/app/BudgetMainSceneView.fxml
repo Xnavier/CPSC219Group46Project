@@ -45,8 +45,16 @@
             <Label fx:id="savingsLabel" text="Calculate your savings" />
             <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" text="Savings" />
             <Label fx:id = "savingsLabel2" text = ""/>
-            
          </children>
+      </HBox>
+      <HBox prefHeight = "200.0" prefWidth = "200.0">
+      	<children>
+      	<Label fx:id = "budgetLabel" text ="Calculate your budget"/>
+      	<Button fx:id ="getBudgetButton" onAction = "#getFinal" text ="Calculate"/>
+      	<Label fx:id = "budgetLabel2" text = ""/>
+      	</children>
+      	
+      
       </HBox>
    </children>
 </VBox>

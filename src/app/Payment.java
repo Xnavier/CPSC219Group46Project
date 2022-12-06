@@ -6,6 +6,7 @@ public class Payment {
 	private int dollars = 0;
 	private int cents = 0;
 	private Date startDate = new Date();
+	private String name = "";	
 	
 	public Payment() {
 		
@@ -15,17 +16,10 @@ public class Payment {
 		dollars = payment.dollars;
 		cents = payment.cents;
 		startDate = payment.startDate;
+		name = payment.name;
 	}
 	
-	public Payment(int total) throws InvalidPaymentException {
-		if (total < 0) {
-		throw new InvalidPaymentException("Amounts cannot be negative. ");
-		}
-		setDollars(total / 100);
-		setCents(total % 100);
-	}
-	
-	public Payment(int dollar, int cent) throws InvalidPaymentException {
+	public Payment(String name, int dollar, int cent) throws InvalidPaymentException {
 		if (dollar < 0) {
 		throw new InvalidPaymentException("Dollars must be positive. ");
 		}
@@ -34,14 +28,32 @@ public class Payment {
 		}
 		setDollars(dollar);
 		setCents(cent);
-	}
-
-	public void setDollars(int dollars) {
-		this.dollars = dollars;
+		setName(name);
 	}
 	
+	public Payment(String name, int total) throws InvalidPaymentException {
+		if (total < 0) {
+		throw new InvalidPaymentException("Amounts cannot be negative. ");
+		}
+		setDollars(total / 100);
+		setCents(total % 100);
+		setName(name);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getDollars() {
 		return dollars;
+	}
+	
+	public void setDollars(int dollars) {
+		this.dollars = dollars;
 	}
 	
 	public int getCents() {

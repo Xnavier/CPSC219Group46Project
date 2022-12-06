@@ -4,12 +4,12 @@ import java.util.Date;
 public class RecurringPayment extends Payment{
 	private int period = 1;
 	
-	public RecurringPayment(int dollar, int cent, int time) throws InvalidPaymentException {
-		super(dollar, cent);
-		if (time < 0) {
+	public RecurringPayment(String name, int dollar, int cent, int days) throws InvalidPaymentException {
+		super(name, dollar, cent);
+		if (days < 0) {
 			throw new InvalidPaymentException("Time period cannot be negative.");
 		}
-		setPeriod(time);
+		setPeriod(days);
 	}
 	
 	public int getPeriod() {

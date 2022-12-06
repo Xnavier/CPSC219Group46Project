@@ -14,38 +14,50 @@ import javafx.stage.Stage;
 
 public class BudgetCalculatorController {
 	Stage appStage;
-	VBox expenseBox;
-	VBox incomeBox;
 
-	@FXML
-	private Label invalidValueLabel;
 
-    @FXML
-    private Label directionsLabel;
+	    @FXML
+	    private Label directionsLabel;
 
-    @FXML
-    private Label expenseLabel;
+	    @FXML
+	    private Label expenseLabel;
 
-    @FXML
-    private Button getRandomSceneButton;
+	    @FXML
+	    private Button incomeBaitButton;
 
-    @FXML
-    private Label savingsLabel;
+	    @FXML
+	    private Label incomeSceneBaitLabel;
 
-    @FXML
-    private Label randomLabel;
+	    @FXML
+	    private Label savingsLabel;
 
-    @FXML
-    private TextField NumOfUsersTextField;
+	    @FXML
+	    private TextField NumOfUsersTextField;
 
-    @FXML
-    private Button getSavingsSceneLabel;
+	    @FXML
+	    private Button getSavingsSceneLabel;
 
-    @FXML
-    private Button getExpensesButton;
+	    @FXML
+	    private Button getExpensesButton;
 
-    @FXML
-    private Button RecordNumUsersButton;
+	    @FXML
+	    private Button RecordNumUsersButton;
+	    
+	    @FXML 
+	    private Label numUsersLabel;
+
+	    @FXML
+	    void f50808(ActionEvent event) {
+
+	    }
+
+	    
+	    
+	
+	    public void recordUserNumber (ActionEvent recordEvent) {
+	    	int numUser = Integer.parseInt(NumOfUsersTextField.getText());
+	    	numUsersLabel.setText(String.format("%.2f users",numUser));
+	    }
     
  
     		
@@ -123,7 +135,6 @@ public class BudgetCalculatorController {
 
 
 
-
 	double income = 0.0;
 	private Label incomeLabel;
 	
@@ -165,19 +176,13 @@ public class BudgetCalculatorController {
 		
 		
 	}
-	Scene incomeScene = new Scene(incomeBox); 
+
 	
 	
-	@FXML
-	void calculateBudget (ActionEvent calculate) {
-		
-		double finBudget = 0.0;
-		
-		finBudget = finBudget + income;
-		finBudget = finBudget - planExpense;
+	
 		
 		
-	}
+	
 	
 	
 	

@@ -10,32 +10,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 
-<VBox prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GradeCalculatorController">
+<VBox prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GradeCalculatorController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="directionsLabel" text="Please enter the number of users that will be using this app." />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <TextField fx:id="NumOfUsersTextField" />
             <Button fx:id="RecordNumUsersButton" mnemonicParsing="false" text="ENTER" textFill="#11a9d3" />
+            <Label fx:id = "numUsersLabel" text=""/>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="200.0" prefWidth="200.0" >
+      <children>
+      	<Label fx:id = "incomeSceneBaitLabel" text = "Calculate your income"/>
+      	<Button fx:id = "incomeBaitButton" mnemonicParsing = "false" onAction = "#getIncome" text = "Income" />
+      	</children>
+      	</HBox>
+      <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="expenseLabel" text="Calculate Expenses" />
             <Button fx:id="getExpensesButton" mnemonicParsing="false" text="Expenses" textFill="#f50808" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label fx:id="randomLabel" text="Random Expenses" />
-            <Button fx:id="getRandomSceneButton" mnemonicParsing="false" text="Random Costs " />
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      
+      <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="savingsLabel" text="Calculate your savings" />
             <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" text="Savings" />

@@ -157,7 +157,7 @@ public class BudgetCalculatorController {
 		
 		finBudget = finBudget + income;
 		finBudget = finBudget - planExpense;
-		finBudget = finBudget -randomExpense;
+		finBudget = finBudget - randomExpense;
 		finBudget = finBudget + saveForecast;
 		
 	}

@@ -1,4 +1,4 @@
-package application;
+package app;
 import java.util.Date;
 
 public class RecurringPayment extends Payment{

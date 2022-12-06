@@ -6,5 +6,5 @@ module CPSC219Group46Project {
 	
 	
 	
-	opens application to javafx.graphics, javafx.fxml;
+	opens app to javafx.graphics, javafx.fxml;
 }

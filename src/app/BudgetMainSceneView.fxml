@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 
-<VBox prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GradeCalculatorController">
+<VBox prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.BudgetCalculatorController">
    <children>
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -50,7 +50,7 @@
       <HBox prefHeight = "200.0" prefWidth = "200.0">
       	<children>
       	<Label fx:id = "budgetLabel" text ="Calculate your budget"/>
-      	<Button fx:id ="getBudgetButton" onAction = "#getFinal" text ="Calculate"/>
+      	<Button fx:id ="getBudgetButton" text ="Calculate"/>
       	<Label fx:id = "budgetLabel2" text = ""/>
       	</children>
       	

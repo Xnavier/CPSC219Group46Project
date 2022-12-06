@@ -27,13 +27,16 @@
       <HBox prefHeight="200.0" prefWidth="200.0" >
       <children>
       	<Label fx:id = "incomeSceneBaitLabel" text = "Calculate your income"/>
-      	<Button fx:id = "incomeBaitButton" mnemonicParsing = "false" onAction = "#getIncome" text = "Income" />
+      	<Button fx:id = "incomeBaitButton" mnemonicParsing = "false" onAction = "#getIncome" text = "Income"
+      	textFill = "GREEN" />
+      	<Label fx:id = "incomeLabel" text = ""/>
       	</children>
       	</HBox>
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="expenseLabel" text="Calculate Expenses" />
-            <Button fx:id="getExpensesButton" mnemonicParsing="false" text="Expenses" textFill="#f50808" />
+            <Button fx:id="getExpensesButton" mnemonicParsing="false" onAction = "#getExpense" text="Expenses" textFill="#f50808" />
+            <Label fx:id = "expenseLabel" text = ""/>
          </children>
       </HBox>
       
@@ -41,6 +44,8 @@
          <children>
             <Label fx:id="savingsLabel" text="Calculate your savings" />
             <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" text="Savings" />
+            <Label fx:id = "savingsLabel2" text = ""/>
+            
          </children>
       </HBox>
    </children>

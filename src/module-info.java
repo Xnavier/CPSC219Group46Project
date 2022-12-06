@@ -1,4 +1,4 @@
-module Team46CPSC219Project {
+module CPSC219Group46Project {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.graphics;

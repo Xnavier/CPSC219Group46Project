@@ -27,9 +27,15 @@ public class BudgetCalculatorController {
 
 	    @FXML
 	    private Label incomeSceneBaitLabel;
+	    
+	    @FXML
+	    private Label incomeLabel;
 
 	    @FXML
 	    private Label savingsLabel;
+	    
+	    @FXML 
+	    private Label savingsLabel2;
 
 	    @FXML
 	    private TextField NumOfUsersTextField;
@@ -72,15 +78,14 @@ public class BudgetCalculatorController {
 	
   
   
-  	double planExpense = 0.0;
-	private Object planExpenseLabel;
-  	void calculatePlanExpense (Scene mainScene, Label planExpenseLabel) {
+  	double expense= 0.0;
+  	public void calculateExpense (Scene mainScene, Label expenseLabel) {
   		appStage.setScene(mainScene);
-  		planExpense = Double.parseDouble(planExpenseLabel.getText());
+  		expense += Integer.parseInt(expenseLabel.getText());
   	}
 	
 	@FXML
-	void getExpenseScene(ActionEvent enterExpenseEvent) {
+	void getExpense(ActionEvent enterExpenseEvent) {
     	Scene mainScene = appStage.getScene();
     	
     	int finExpense = 0;
@@ -103,10 +108,19 @@ public class BudgetCalculatorController {
     		
     		finExpense = finExpense + ((Integer.parseInt(utilitiesDollars.getText()))+ ((Integer.parseInt(utilitiesCents.getText())/ 100)));
     		
+    		HBox randomsField = new HBox();
+    		Label randomEstimate = new Label ("Enter the amount of money you may spend on luxuries or random incidents requiring payment");
+    		TextField randomExpenseDollars = new TextField();
+    		TextField randomExpenseCents = new TextField();
     		
+    		finExpense = finExpense + ((Integer.parseInt(randomExpenseDollars.getText()))+ ((Integer.parseInt(randomExpenseCents.getText())/ 100)));
+    		
+    		expenseLabel.setText(String.format("%.2f", finExpense));
     	
-    	Button eDoneButton = new Button ("Done");
-    	eDoneButton.setOnAction(doneEvent -> findTotalExpense(mainScene, planExpenseLabel));
+    	Button eDoneButton = new Button ("Next");
+    	eDoneButton.setOnAction(doneEvent -> calculateExpense(mainScene, expenseLabel));
+    	
+    	
     	
     		
     	
@@ -122,10 +136,8 @@ public class BudgetCalculatorController {
 
 
 	
-	private Object findTotalExpense(Scene mainScene, Object planExpenseLabel2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 
 
@@ -136,11 +148,10 @@ public class BudgetCalculatorController {
 
 
 	double income = 0.0;
-	private Label incomeLabel;
 	
 	public void calculateIncome (Scene mainScene, Label incomeLabel) {
 		appStage.setScene(mainScene);
-		income += Double.parseDouble(incomeLabel.getText());
+		income += Integer.parseInt(incomeLabel.getText());
 		
 	}
 	@FXML
@@ -164,19 +175,51 @@ public class BudgetCalculatorController {
 		finIncome = finIncome + ((Integer.parseInt(partTimeDollars.getText()))+ ((Integer.parseInt(partTimeCents.getText())/ 100)));
 		
 		
-		
+		incomeLabel.setText(String.format("%.2f", finIncome));
 		
 		Button iDoneButton = new Button("Next");
 		iDoneButton.setOnAction(nextEvent -> calculateIncome(mainScene, incomeLabel) );
-		incomeBox.getChildren().addAll(partTimeField, partTimeDirectionsLabel,partTimeDollars, partTimeCents);
-	
+		
 	
 		
 		
 		
 		
 	}
+		double savings = 0;
 
+
+		private Scene mainScene;
+		public void getTotalSavings (Scene mainScene, Label savingsLabel2) {
+			appStage.setScene(mainScene);
+			savings =+ Integer.parseInt(savingsLabel2.getText());
+		
+			
+		}
+	@FXML 
+	void getSavings (ActionEvent enterSavings) {
+		
+		VBox savingsBox = new VBox();
+		
+		HBox savingsToGet = new HBox();
+		Label savingsDirectionsLabel = new Label("Enter the amount of money you would like to save.");
+		TextField savingsDollarsTextField = new TextField();
+		TextField savingsCentsTextField = new TextField();
+		int wantedSavingsDollars = 0;
+		wantedSavingsDollars = ((Integer.parseInt(savingsDollarsTextField.getText()))+ ((Integer.parseInt(savingsCentsTextField.getText())/ 100)));
+		
+		savingsLabel2.setText(String.format("%.2f",wantedSavingsDollars));
+		
+		Button sDoneButton = new Button ("Done");
+		sDoneButton.setOnAction(doneEvent -> getTotalSavings(mainScene, savingsLabel2));
+				
+		
+		
+		
+		
+	
+	}
+		
 	
 	
 	

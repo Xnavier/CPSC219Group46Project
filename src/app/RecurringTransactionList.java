@@ -40,8 +40,8 @@ public class RecurringTransactionList {
 				cents = 100 * dollars + paymentList.get(counter).getCents();
 				numPayments = timespan % (paymentList.get(counter).getPeriod() * 86400000);
 				totalAmount += numPayments * cents;
-				counter++;
-			}		
+			}
+			counter++;
 		}
 		return totalAmount;
 	}	

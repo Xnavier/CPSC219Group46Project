@@ -29,10 +29,10 @@ public class TransactionList {
 		int counter = 0;
 		int dollars = 0;
 		int cents = 0;
-		while (counter < length) {
-			counter++;
+		while (counter < length) {			
 			dollars +=  paymentList.get(counter).getDollars();
 			cents += paymentList.get(counter).getCents();
+			counter++;
 		}
 		return 100 * dollars + cents;
 	}

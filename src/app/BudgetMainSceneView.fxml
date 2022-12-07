@@ -12,18 +12,7 @@
 
 <VBox prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.BudgetCalculatorController">
    <children>
-      <HBox prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Label fx:id="directionsLabel" text="Please enter the number of users that will be using this app." />
-         </children>
-      </HBox>
-      <HBox prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <TextField fx:id="NumOfUsersTextField" />
-            <Button fx:id="RecordNumUsersButton" mnemonicParsing="false" text="ENTER" textFill="#11a9d3" />
-            <Label fx:id = "numUsersLabel" text=""/>
-         </children>
-      </HBox>
+      
       <HBox prefHeight="200.0" prefWidth="200.0" >
       <children>
       	<Label fx:id = "incomeSceneBaitLabel" text = "Calculate your income"/>

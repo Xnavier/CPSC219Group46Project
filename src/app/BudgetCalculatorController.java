@@ -69,11 +69,9 @@ public class BudgetCalculatorController {
 	    }
 	    
   
-  	int expense= 0;
-  	public int calculateExpense (Scene mainScene, Label expenseLabel) {
-  		appStage.setScene(mainScene);
-  		return expense += Integer.parseInt(expenseLabel.getText());
-  	}
+  	Label expenseErrorLabel = new Label("");
+  	RecurringTransactionList expenseList = new RecurringTransactionList("Expense subtractors");
+  	
 	
 	@FXML
 	public void getExpense(ActionEvent enterExpenseEvent) {
@@ -153,6 +151,10 @@ public class BudgetCalculatorController {
     		rPeriods.getItems().add("weeks");
     		rPeriods.getItems().add("months");
     		
+    		Button doneButton = new Button ("Done");
+    		doneButton.setOnAction(doneEvent -> getExpenseHelper(mainScene, foodExpenseDollars,foodExpenseCents,periodPayFood,foodPeriods.getValue(), utilitiesDollars,utilitiesCents ,periodPayUt,uPeriods.getValue(), randomExpenseDollars, randomExpenseCents,periodPayRa,rPeriods.getValue(), "Expenditures"));
+    		
+    		
     		rPeriod.getChildren().addAll(rPeriodLabel, periodPayRa, rPeriods);
     		expenseBox.getChildren().addAll(foodField, foodPeriod, utilitiesField,uPeriod, randomsField, rPeriod);
     	
@@ -167,15 +169,128 @@ public class BudgetCalculatorController {
     	
 
 	}
+	void getExpenseHelper(Scene mainscene, TextField amountDollars, TextField amountCents, TextField periodNumber, String string, TextField utilitiesDollars, TextField utilitiesCents, TextField periodPayUt, String string2, TextField randomExpenseDollars, TextField randomExpenseCents, TextField periodPayRa,  String periodTime, String name) {
+		expenseErrorLabel.setText("");		
+		String centsString = amountCents.getText();
+		String dollarsString = amountDollars.getText();
+		String dollarsString2 = utilitiesDollars.getText();
+		String centsString2 = utilitiesCents.getText();
+		String dollarsString3 = randomExpenseDollars.getText();
+		String centsString3 = randomExpenseCents.getText();
+		boolean amountError = false;
+		for (char c : dollarsString.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+		for (char c : centsString.toCharArray()) {
+    		//Check if character is a digit
+    		if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+    		}
+		for (char c : dollarsString2.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+		for (char c : centsString2.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+		
+		for (char c : dollarsString3.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+		
+		for (char c : centsString3.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+    	if (amountError == false) { 
+    		try {
+    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString), Integer.parseInt(centsString));
+    			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), periodTime);
+    			expenseList.addTransaction(expenseSource);
+    		} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+    	}
+    	
+    	if (amountError == false) { 
+    		try {
+    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString2), Integer.parseInt(centsString2));
+    			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), string);
+    			expenseList.addTransaction(expenseSource);
+    		} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+    	}
+    	
+    	if (amountError == false) { 
+    		try {
+    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString3), Integer.parseInt(centsString3));
+    			expenseSource.setPeriod(Integer.parseInt(periodPayUt.getText()), string2);
+    			expenseList.addTransaction(expenseSource);
+    		} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+    	}
+    	appStage.setScene(mainscene);
  
     	
-    
-int income = 0;
-	
-	void calculateIncome (Scene mainScene, Label incomeLabel) {
-		appStage.setScene(mainScene);
-		income = 0;
-		income += Integer.parseInt(incomeLabel.getText());
+ 
 		
 		
 	}
@@ -260,17 +375,12 @@ int income = 0;
     	appStage.setScene(mainscene);
 	}
 	
-		int savings = 0;
-
-
-		private Scene mainScene;
-		public int getTotalSavings (Scene mainScene, Label savingsLabel2) {
-			appStage.setScene(mainScene);
-			savings =+ Integer.parseInt(savingsLabel2.getText());
-			return savings;
+	Label savingsErrorLabel = new Label();
+	RecurringTransactionList savingsList = new RecurringTransactionList("Saved revenue");
+	
 		
 			
-		}
+		
 	@FXML 
 	void getSavings (ActionEvent enterSavings) {
 		
@@ -308,15 +418,7 @@ int income = 0;
 		
 		
 	
-	}
-		
-	void getFinal(ActionEvent finalCalc) {
-	
-		
-		double budget = income + savings - expense;
-		
-	System.out.println("Your final budget is :" + budget);
-	}
+	}	
 		
 
 		

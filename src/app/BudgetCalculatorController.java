@@ -124,6 +124,8 @@ public class BudgetCalculatorController {
     	appStage.setScene(expenseScene);
 	}
 	
+	
+	
 	RecurringTransactionList recurringExpenseList = new RecurringTransactionList("Recurring Expenses");
 	
 	void getExpenseHelper(Scene mainScene, TextField foodExpenseDollars, TextField foodExpenseCents, TextField utilitiesDollars, TextField utilitiesCents, TextField randomExpenseDollars, TextField randomExpenseCents) {
@@ -222,21 +224,47 @@ public class BudgetCalculatorController {
 		
 		}
 		
+		int foodDollars = 0;
+		int foodCents = 0;
+		int utilDollars = 0;
+		int utilCents = 0;
+		int randDollars = 0;
+		int randCents = 0;
+		
+		if (!(foodExpenseDollars.getText() == "")) {
+			foodDollars = Integer.parseInt(foodExpenseDollars.getText());
+		}
+		if (!(foodExpenseCents.getText() == "")) {
+			foodCents = Integer.parseInt(foodExpenseCents.getText());
+		}
+		if (!(utilitiesDollars.getText() == "")) {
+			utilDollars = Integer.parseInt(utilitiesDollars.getText());
+		}
+		if (!(utilitiesCents.getText() == "")) {
+			utilCents = Integer.parseInt(utilitiesCents.getText());
+		}
+		if (!(randomExpenseDollars.getText() == "")) {
+			randDollars = Integer.parseInt(randomExpenseDollars.getText());
+		}
+		if (!(randomExpenseCents.getText() == "")) {
+			randCents = Integer.parseInt(randomExpenseCents.getText());
+		}
+		
 		if (amountError == false) {
 			try {
-				RecurringPayment food = new RecurringPayment("Food", Integer.parseInt(foodExpenseDollars.getText()), Integer.parseInt(foodExpenseCents.getText()), 30);
+				RecurringPayment food = new RecurringPayment("Food", foodDollars, foodCents, 30);
 				recurringExpenseList.addTransaction(food);
 			} catch (InvalidPaymentException e) {
     			expenseErrorLabel.setText(e.getMessage());
     		}
 			try {
-				RecurringPayment utilities = new RecurringPayment("Utilities", Integer.parseInt(utilitiesDollars.getText()), Integer.parseInt(utilitiesCents.getText()), 30);
+				RecurringPayment utilities = new RecurringPayment("Utilities", utilDollars, utilCents, 30);
 				recurringExpenseList.addTransaction(utilities);
 			} catch (InvalidPaymentException e) {
     			expenseErrorLabel.setText(e.getMessage());
     		}
 			try {
-				RecurringPayment food = new RecurringPayment("Miscellaneous", Integer.parseInt(randomExpenseDollars.getText()), Integer.parseInt(randomExpenseCents.getText()), 30);
+				RecurringPayment food = new RecurringPayment("Miscellaneous", randDollars, randCents, 30);
 				recurringExpenseList.addTransaction(food);
 			} catch (InvalidPaymentException e) {
     			expenseErrorLabel.setText(e.getMessage());

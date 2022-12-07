@@ -114,13 +114,14 @@
                   <Font name="System Bold Italic" size="28.0" />
                </font>
       	</Button>
-      	<HBox prefHeight= "150.0" prefWidth= "100.0">
+
+       </children>
+      	</HBox>
+      	      	<HBox prefHeight= "150.0" prefWidth= "100.0">
       	<children>
       	 <Label fx:id = "budgetLabel2" text = ""/>
       	
       	</children>
-      	</HBox>
-       </children>
       	</HBox>
    </children>
 </VBox>

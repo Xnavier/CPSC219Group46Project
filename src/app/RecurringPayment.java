@@ -12,6 +12,8 @@ public class RecurringPayment extends Payment{
 		super(name, dollar, cent);
 		if (days < 0) {
 			throw new InvalidPaymentException("Time period cannot be negative.");
+		} else if (days == 0) {
+			throw new InvalidPaymentException("Time period cannot be zero.");
 		}
 		setPeriod(days);
 	}

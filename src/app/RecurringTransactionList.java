@@ -35,12 +35,10 @@ public class RecurringTransactionList {
 		long numPayments = 0;
 		long totalAmount = 0;
 		while (counter < length) {
-			if (start.before(paymentList.get(counter).getStartDate()) || start.equals(paymentList.get(counter).getStartDate())) {
-				dollars =  paymentList.get(counter).getDollars();
-				cents = 100 * dollars + paymentList.get(counter).getCents();
-				numPayments = timespan % (paymentList.get(counter).getPeriod() * 86400000);
-				totalAmount += numPayments * cents;
-			}
+			dollars =  paymentList.get(counter).getDollars();
+			cents = 100 * dollars + paymentList.get(counter).getCents();
+			numPayments = timespan / (paymentList.get(counter).getPeriod() * 86400000);
+			totalAmount += numPayments * cents;
 			counter++;
 		}
 		return totalAmount;

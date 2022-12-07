@@ -23,8 +23,8 @@
       	</HBox>
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="expenseLabel" text="Calculate Expenses" />
-            <Button fx:id="getExpensesButton" mnemonicParsing="false" onAction = "#getExpense" text="Expenses" textFill="#f50808" />
+            <Label fx:id="expenseLabel" text="Enter your Expenses" />
+            <Button fx:id="getExpensesButton" mnemonicParsing="false" onAction = "#getExpense" text="Main Expenses" textFill="#f50808" />
             <Label fx:id = "expenseLabel" text = ""/>
          </children>
       </HBox>

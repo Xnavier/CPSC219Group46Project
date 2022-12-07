@@ -68,93 +68,170 @@ public class BudgetCalculatorController {
 
 	    }
 	    
-  
-  	int expense= 0;
-  	public int calculateExpense (Scene mainScene, Label expenseLabel) {
-  		appStage.setScene(mainScene);
-  		return expense += Integer.parseInt(expenseLabel.getText());
-  	}
-	
+	Label expenseErrorLabel = new Label("");
+	    
 	@FXML
 	public void getExpense(ActionEvent enterExpenseEvent) {
     	Scene mainScene = appStage.getScene();
     	
-    	int finExpense = 0;
-    	VBox expenseBox = new VBox();{
+    	VBox expenseBox = new VBox();
     	
-    		HBox foodField = new HBox();
+    	HBox foodField = new HBox();
     		
-    		Label foodEstimate = new Label("Estimate the value of the food expenses per month.");
-    		TextField foodExpenseDollars = new TextField();
-    		TextField foodExpenseCents = new TextField();
-    		foodField.getChildren().addAll(foodEstimate, foodExpenseDollars, foodExpenseCents);
+    	Label foodEstimate = new Label("Estimate the value of the food expenses per month:");
+    	Label foodDollarLabel = new Label("Dollars: ");
+    	TextField foodExpenseDollars = new TextField();
+    	Label foodCentsLabel = new Label("Cents: ");
+    	TextField foodExpenseCents = new TextField();
+    	foodField.getChildren().addAll(foodDollarLabel, foodExpenseDollars, foodCentsLabel, foodExpenseCents);
     		
-    		finExpense = finExpense + ((Integer.parseInt(foodExpenseDollars.getText()))+ ((Integer.parseInt(foodExpenseCents.getText())/ 100)));
+    	HBox utilitiesField = new HBox();
+    	Label utilitiesEstimate = new Label ("Enter the rough amount of money spent per month on utilities:");
+    	Label uDollarLabel = new Label("Dollars: ");
+    	TextField utilitiesDollars = new TextField();
+    	Label uCentsLabel = new Label("Cents: ");
+    	TextField utilitiesCents = new TextField();
     		
-    		HBox utilitiesField = new HBox();
-    		Label utilitiesEstimate = new Label ("Enter the rough amount of money spent per month on utilities.");
-    		TextField utilitiesDollars = new TextField();
-    		TextField utilitiesCents = new TextField();
+    	utilitiesField.getChildren().addAll(uDollarLabel, utilitiesDollars, uCentsLabel, utilitiesCents);
     		
-    		utilitiesField.getChildren().addAll(utilitiesEstimate, utilitiesDollars, utilitiesCents);
+    	HBox randomsField = new HBox();
+    	Label randomEstimate = new Label ("Enter the amount of money you may spend on luxuries or miscellaneous monthly expenses");
+    	Label rDollarLabel = new Label("Dollars: ");
+    	TextField randomExpenseDollars = new TextField();
+    	Label rCentsLabel = new Label("Cents: ");
+    	TextField randomExpenseCents = new TextField();
     		
-    		finExpense = finExpense + ((Integer.parseInt(utilitiesDollars.getText()))+ ((Integer.parseInt(utilitiesCents.getText())/ 100)));
+    	randomsField.getChildren().addAll(rDollarLabel, randomExpenseDollars, rCentsLabel, randomExpenseCents);
     		
-    		HBox randomsField = new HBox();
-    		Label randomEstimate = new Label ("Enter the amount of money you may spend on luxuries or random incidents requiring payment");
-    		TextField randomExpenseDollars = new TextField();
-    		TextField randomExpenseCents = new TextField();
-    		
-    		randomsField.getChildren().addAll(randomEstimate, randomExpenseDollars, randomExpenseCents);
-    		
-    		
-    		
-    		finExpense = finExpense + ((Integer.parseInt(randomExpenseDollars.getText()))+ ((Integer.parseInt(randomExpenseCents.getText())/ 100)));
-    		expenseBox.getChildren().addAll(foodField, utilitiesField, randomsField);
-    		expenseLabel.setText(String.format("%.2f", finExpense));
-    	
     	Button eDoneButton = new Button ("Next");
-    	eDoneButton.setOnAction(doneEvent -> calculateExpense(mainScene, expenseLabel));}
+    	eDoneButton.setOnAction(doneEvent -> getExpenseHelper(mainScene, foodExpenseDollars, foodExpenseCents, utilitiesDollars, utilitiesCents, randomExpenseDollars, randomExpenseCents));
+    	
+    	expenseBox.getChildren().addAll(foodEstimate, foodField, utilitiesEstimate, utilitiesField, randomEstimate, randomsField, expenseErrorLabel, eDoneButton);
     	
     	Scene expenseScene = new Scene (expenseBox);
     	appStage.setScene(expenseScene);
-		
-    	
-    	
-    	
-    		
-    	
-
+	
 	}
- 
-    	
-    
-  
-
-
-
-
-
 	
-
+	RecurringTransactionList recurringExpenseList = new RecurringTransactionList("Recurring Expenses");
 	
-
-
-
-
-
-
-
-
-
-	int income = 0;
-	
-	void calculateIncome (Scene mainScene, Label incomeLabel) {
+	void getExpenseHelper(Scene mainScene, TextField foodExpenseDollars, TextField foodExpenseCents, TextField utilitiesDollars, TextField utilitiesCents, TextField randomExpenseDollars, TextField randomExpenseCents) {
+		boolean amountError = false;
+		for (char c : foodExpenseDollars.getText().toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				expenseErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}
+		if (amountError == false) {
+			for (char c : foodExpenseCents.getText().toCharArray()) {
+	    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+	    			if (c == '-') {
+	    				expenseErrorLabel.setText("Amount should be positive");
+						amountError = true;
+	    			//returns error message for invalid characters
+	    			} else {
+	    				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+	    				amountError = true;
+	    			}
+	    		}
+			}
+		}
+		if (amountError == false) {
+			for (char c : utilitiesDollars.getText().toCharArray()) {
+		    	//Check if character is a digit
+				if (!Character.isDigit(c)) {
+		    		if (c == '-') {
+		    			expenseErrorLabel.setText("Amount should be positive");
+						amountError = true;
+		    			//returns error message for invalid characters
+		    		} else {
+		    			expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+		    			amountError = true;
+		    		}
+		    	}
+			}
+		
+		}
+		if (amountError == false) {
+			for (char c : utilitiesCents.getText().toCharArray()) {
+		    	//Check if character is a digit
+				if (!Character.isDigit(c)) {
+		    		if (c == '-') {
+		    			expenseErrorLabel.setText("Amount should be positive");
+						amountError = true;
+		    			//returns error message for invalid characters
+		    		} else {
+		    			expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+		    			amountError = true;
+		    		}
+		    	}
+			}
+		
+		}
+		if (amountError == false) {
+			for (char c : randomExpenseDollars.getText().toCharArray()) {
+		    	//Check if character is a digit
+				if (!Character.isDigit(c)) {
+		    		if (c == '-') {
+		    			expenseErrorLabel.setText("Amount should be positive");
+						amountError = true;
+		    			//returns error message for invalid characters
+		    		} else {
+		    			expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+		    			amountError = true;
+		    		}
+		    	}
+			}
+		
+		}
+		if (amountError == false) {
+			for (char c : randomExpenseCents.getText().toCharArray()) {
+		    	//Check if character is a digit
+				if (!Character.isDigit(c)) {
+		    		if (c == '-') {
+		    			expenseErrorLabel.setText("Amount should be positive");
+						amountError = true;
+		    			//returns error message for invalid characters
+		    		} else {
+		    			expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+		    			amountError = true;
+		    		}
+		    	}
+			}
+		
+		}
+		
+		if (amountError == false) {
+			try {
+				RecurringPayment food = new RecurringPayment("Food", Integer.parseInt(foodExpenseDollars.getText()), Integer.parseInt(foodExpenseCents.getText()), 30);
+				recurringExpenseList.addTransaction(food);
+			} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+			try {
+				RecurringPayment utilities = new RecurringPayment("Utilities", Integer.parseInt(utilitiesDollars.getText()), Integer.parseInt(utilitiesCents.getText()), 30);
+				recurringExpenseList.addTransaction(utilities);
+			} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+			try {
+				RecurringPayment food = new RecurringPayment("Miscellaneous", Integer.parseInt(randomExpenseDollars.getText()), Integer.parseInt(randomExpenseCents.getText()), 30);
+				recurringExpenseList.addTransaction(food);
+			} catch (InvalidPaymentException e) {
+    			expenseErrorLabel.setText(e.getMessage());
+    		}
+		}
+		
 		appStage.setScene(mainScene);
-		income = 0;
-		income += Integer.parseInt(incomeLabel.getText());
-		
-		
 	}
 	
 	Label incomeErrorLabel = new Label();
@@ -164,13 +241,21 @@ public class BudgetCalculatorController {
 	void getIncome (ActionEvent enterIncome) {
 		Scene mainScene = appStage.getScene();
 		VBox incomeContainer = new VBox();
-		Label primaryIncomeTitle = new Label ("Enter the amount and period of your primary source of income:");
+		Label primaryIncomeNamePrompt = new Label ("Enter a name for this income source:");
+		HBox primaryIncomeNameBox = new HBox();
+		Label primaryIncomeNameLabel = new Label ("Name:");
+		TextField primaryIncomeName = new TextField();
+		primaryIncomeNameBox.getChildren().addAll(primaryIncomeNameLabel, primaryIncomeName);
+		
+		Label primaryIncomeTitle = new Label ("Enter the amount of money you earn from this income source each payment:");
 		HBox primaryIncomeContainer = new HBox();
 		Label primaryIncomeLabelDollars = new Label ("Dollars: ");
 		TextField primaryIncomeAmountDollars = new TextField();
 		Label primaryIncomeLabelCents = new Label ("Cents:");
 		TextField primaryIncomeAmountCents = new TextField();
 		primaryIncomeContainer.getChildren().addAll(primaryIncomeLabelDollars, primaryIncomeAmountDollars, primaryIncomeLabelCents, primaryIncomeAmountCents);
+		
+		Label primaryIncomePeriodTitle = new Label ("Enter the period of this income source: (i.e. how often you get paid)");
 		HBox primaryIncomePeriod = new HBox();
 		Label primaryIncomePeriodLabel = new Label("Period of Income:");
 		TextField primaryIncomePeriodNumber = new TextField();
@@ -182,12 +267,10 @@ public class BudgetCalculatorController {
 		
 		primaryIncomePeriod.getChildren().addAll(primaryIncomePeriodLabel, primaryIncomePeriodNumber, primaryIncomePeriodTime);
 		
-		
-		
 		Button doneButton = new Button ("Done");
-		doneButton.setOnAction(doneEvent -> getIncomeHelper(mainScene, primaryIncomeAmountDollars, primaryIncomeAmountCents, primaryIncomePeriodNumber, primaryIncomePeriodTime.getValue(), "Primary Income"));
+		doneButton.setOnAction(doneEvent -> getIncomeHelper(mainScene, primaryIncomeAmountDollars, primaryIncomeAmountCents, primaryIncomePeriodNumber, primaryIncomePeriodTime.getValue(), primaryIncomeName.getText()));
 		
-		incomeContainer.getChildren().addAll(primaryIncomeTitle, primaryIncomeContainer, primaryIncomePeriod, incomeErrorLabel, doneButton);
+		incomeContainer.getChildren().addAll(primaryIncomeNamePrompt, primaryIncomeNameBox, primaryIncomeTitle, primaryIncomeContainer,primaryIncomePeriodTitle, primaryIncomePeriod, incomeErrorLabel, doneButton);
 		
 		Scene primaryIncomeScene = new Scene(incomeContainer);
 		appStage.setScene(primaryIncomeScene);		
@@ -416,29 +499,29 @@ public class BudgetCalculatorController {
 			startDate = new Date(Integer.parseInt(startDateYear.getText()), monthNumber, Integer.parseInt(startDateDay.getValue()));
 			String endMonth = endDateMonth.getValue();
 			int endMonthNumber = 0;
-			if (month == "January") {
+			if (endMonth == "January") {
 				endMonthNumber = 0;
-			} else if (month == "February") {
+			} else if (endMonth == "February") {
 				endMonthNumber = 1;
-			} else if (month == "March") {
+			} else if (endMonth == "March") {
 				endMonthNumber = 2;
-			} else if (month == "April") {
+			} else if (endMonth == "April") {
 				endMonthNumber = 3;
-			} else if (month == "May") {
+			} else if (endMonth == "May") {
 				endMonthNumber = 4;
-			} else if (month == "June") {
+			} else if (endMonth == "June") {
 				endMonthNumber = 5;
-			} else if (month == "July") {
+			} else if (endMonth == "July") {
 				endMonthNumber = 6;
-			} else if (month == "August") {
+			} else if (endMonth == "August") {
 				endMonthNumber = 7;
-			} else if (month == "September") {
+			} else if (endMonth == "September") {
 				endMonthNumber = 8;
-			} else if (month == "October") {
+			} else if (endMonth == "October") {
 				endMonthNumber = 9;
-			} else if (month == "November") {
+			} else if (endMonth == "November") {
 				endMonthNumber = 10;
-			} else if (month == "December") {
+			} else if (endMonth == "December") {
 				endMonthNumber = 11;
 			}
 			endDate = new Date(Integer.parseInt(endDateYear.getText()), endMonthNumber, Integer.parseInt(endDateDay.getValue()));

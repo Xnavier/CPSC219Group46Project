@@ -6,6 +6,7 @@ import java.math.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -169,54 +170,32 @@ public class BudgetCalculatorController {
 		
 		
 	}
+	
 	@FXML
 	void getIncome (ActionEvent enterIncome) {
 		Scene mainScene = appStage.getScene();
-		int finIncome = 0; 
-		int stagef= 4;
-    	
-    	
-    	
-    		
 		
+		VBox incomeContainer = new VBox();
+		Label primaryIncomeTitle = new Label ("Enter the amount and period of your primary source of income:");
+		HBox primaryIncomeContainer = new HBox();
+		Label primaryIncomeLabel = new Label ("Amount in Dollars: ");
+		TextField primaryIncomeAmount = new TextField();
+		primaryIncomeContainer.getChildren().addAll(primaryIncomeLabel, primaryIncomeAmount);
+		HBox primaryIncomePeriod = new HBox();
+		Label primaryIncomePeriodLabel = new Label("Period of Income:");
+		TextField primaryIncomePeriodNumber = new TextField();
+		ChoiceBox<String> primaryIncomePeriodTime = new ChoiceBox<String>();
 		
-	VBox incomeBox = new VBox();
-	ArrayList<TextField> incomeFields = new ArrayList<TextField>();
-	while (stagef > 0) {
-		HBox fullTimeField = new HBox();
-		Label incomeDirectionsLabel = new Label("Enter the approximate amount of money you make from your full time job per month.");
-		TextField fullTimeDollars = new TextField();
-		TextField fullTimeCents = new TextField();
+		primaryIncomePeriodTime.getItems().add("days");
+		primaryIncomePeriodTime.getItems().add("weeks");
+		primaryIncomePeriodTime.getItems().add("months");
 		
-		finIncome = finIncome + ((Integer.parseInt(fullTimeDollars.getText()))+ ((Integer.parseInt(fullTimeCents.getText())/ 100)));
-		fullTimeField.getChildren().addAll(incomeDirectionsLabel, fullTimeDollars, fullTimeCents);
+		primaryIncomePeriod.getChildren().addAll(primaryIncomePeriodLabel, primaryIncomePeriodNumber, primaryIncomePeriodTime);
 		
+		incomeContainer.getChildren().addAll(primaryIncomeTitle, primaryIncomeContainer, primaryIncomePeriod);
 		
-		HBox partTimeField = new HBox();
-		Label partTimeDirectionsLabel = new Label ("enter the amount of money you make from any other streams of income.");
-		TextField partTimeDollars= new TextField();
-		TextField partTimeCents = new TextField();
-		finIncome = finIncome + ((Integer.parseInt(partTimeDollars.getText()))+ ((Integer.parseInt(partTimeCents.getText())/ 100)));
-		
-		partTimeField.getChildren().addAll(partTimeDirectionsLabel, partTimeDollars, partTimeCents);
-		
-		incomeBox.getChildren().addAll(fullTimeField, partTimeField);
-		incomeLabel.setText(String.format("%.2f", finIncome));
-		
-		
-		
-		Button iDoneButton = new Button("Next");
-		iDoneButton.setOnAction(nextEvent -> calculateIncome(mainScene, incomeLabel) );
-	}
-	
-		Scene incomeScene = new Scene(incomeBox);
-		appStage.setScene(incomeScene);
-		
-		
-		
-		
-	
-		
+		Scene primaryIncomeScene = new Scene(incomeContainer);
+		appStage.setScene(primaryIncomeScene);
 		
 		
 		

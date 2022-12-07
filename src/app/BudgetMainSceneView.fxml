@@ -32,7 +32,7 @@
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
             <Label fx:id="savingsLabel" text="Calculate your savings" />
-            <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" text="Savings" />
+            <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" onAction = "#getSavings" text="Savings" />
             <Label fx:id = "savingsLabel2" text = ""/>
          </children>
       </HBox>

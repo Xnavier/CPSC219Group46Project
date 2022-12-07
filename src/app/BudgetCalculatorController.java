@@ -247,7 +247,9 @@ public class BudgetCalculatorController {
     				expenseErrorLabel.setText("Amount should be positive");
 					amountError = true;
     			//returns error message for invalid characters
-    			} else {
+    				
+    			}
+    			else {
     				expenseErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
     				amountError = true;
     			}
@@ -413,8 +415,10 @@ public class BudgetCalculatorController {
 		savingTime.getItems().add("months");
 		savingPeriod.getChildren().addAll(savingPeriodLabel,savingPeriodNumber,savingTime);
 		
+		Button doneButton = new Button("Done");
+		
 		 
-		savingsBox.getChildren().addAll( savingsTitle, savingsToGet, savingPeriod);
+		savingsBox.getChildren().addAll( savingsTitle, savingsToGet, savingPeriod, doneButton);
 		Scene savingScene = new Scene(savingsBox, 700, 700);
 		appStage.setScene(savingScene);
 		

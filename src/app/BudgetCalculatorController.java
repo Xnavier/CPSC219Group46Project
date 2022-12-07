@@ -124,7 +124,7 @@ public class BudgetCalculatorController {
     		Label utCents = new Label("Amount in Cents");
     		TextField utilitiesCents = new TextField();
     		
-    		utilitiesField.getChildren().addAll( utDollars,utilitiesDollars,utCents, utilitiesCents);
+    		utilitiesField.getChildren().addAll(utDollars,utilitiesDollars,utCents, utilitiesCents);
     		
     		HBox uPeriod = new HBox();
     		Label uPeriodLabel = new Label ("Period of time over which costs occur");
@@ -163,7 +163,9 @@ public class BudgetCalculatorController {
     		
     		
     		rPeriod.getChildren().addAll(rPeriodLabel, periodPayRa, rPeriods);
+
     		expenseBox.getChildren().addAll(expenseLabel,foodLabelBox, foodField, foodPeriod, utilitiesLabelBox, utilitiesField,uPeriod, randomLabelBox, randomsField, rPeriod, doneButton);
+
     	
     	
     	Scene expenseScene = new Scene (expenseBox, 700, 300);
@@ -267,7 +269,7 @@ public class BudgetCalculatorController {
 		}	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString), Integer.parseInt(centsString));
+    			RecurringPayment expenseSource = new RecurringPayment("Food Expenses", Integer.parseInt(dollarsString), Integer.parseInt(centsString));
     			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), periodTime);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {
@@ -277,7 +279,7 @@ public class BudgetCalculatorController {
     	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString2), Integer.parseInt(centsString2));
+    			RecurringPayment expenseSource = new RecurringPayment("Utilities Expenses", Integer.parseInt(dollarsString2), Integer.parseInt(centsString2));
     			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), string);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {
@@ -287,7 +289,7 @@ public class BudgetCalculatorController {
     	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString3), Integer.parseInt(centsString3));
+    			RecurringPayment expenseSource = new RecurringPayment("Miscellaneous Recurring Expenses", Integer.parseInt(dollarsString3), Integer.parseInt(centsString3));
     			expenseSource.setPeriod(Integer.parseInt(periodPayUt.getText()), string2);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {

@@ -1,8 +1,9 @@
 package app;
 
 import javafx.event.ActionEvent;
-import java.util.*;
 
+import java.util.*;
+import java.util.Date;
 import java.math.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -18,8 +19,7 @@ public class BudgetCalculatorController {
 	Stage appStage;
 
 
-	   @FXML
-	    private Label directionsLabel;
+	   
 
 	    @FXML
 	    private Label expenseLabel;
@@ -35,24 +35,33 @@ public class BudgetCalculatorController {
 
 	    @FXML
 	    private Label savingsLabel;
-	    
-	    @FXML 
-	    private Label savingsLabel2;
-
-	    @FXML
-	    private TextField NumOfUsersTextField;
 
 	    @FXML
 	    private Button getSavingsSceneLabel;
 
 	    @FXML
 	    private Button getExpensesButton;
-
-	    @FXML
-	    private Button RecordNumUsersButton;
+	     
+	    @FXML 
+	    private Label newDirections;
 	    
 	    @FXML 
-	    private Label numUsersLabel;
+	    private TextField startDateField;
+	    
+	   @FXML
+	    private TextField endDateField;
+	   
+	   @FXML
+	   private Label dateLabel;
+	   
+	   @FXML
+	   private Label dateLabel2;
+	   
+	   
+	    
+
+	    
+	   
 	    
 	    @FXML
 	    private Label budgetLabel;
@@ -60,14 +69,13 @@ public class BudgetCalculatorController {
 	    @FXML
 	    private Button getBudgetButton;
 	    
-	    @FXML 
-	    private Label budgetLabel2;
 
 	    @FXML
 	    void f50808(ActionEvent event) {
 
 	    }
 	    
+
 	Label expenseErrorLabel = new Label("");
 	    
 	@FXML
@@ -107,10 +115,10 @@ public class BudgetCalculatorController {
     	eDoneButton.setOnAction(doneEvent -> getExpenseHelper(mainScene, foodExpenseDollars, foodExpenseCents, utilitiesDollars, utilitiesCents, randomExpenseDollars, randomExpenseCents));
     	
     	expenseBox.getChildren().addAll(foodEstimate, foodField, utilitiesEstimate, utilitiesField, randomEstimate, randomsField, expenseErrorLabel, eDoneButton);
+
     	
-    	Scene expenseScene = new Scene (expenseBox);
+    	Scene expenseScene = new Scene (expenseBox, 700, 300);
     	appStage.setScene(expenseScene);
-	
 	}
 	
 	RecurringTransactionList recurringExpenseList = new RecurringTransactionList("Recurring Expenses");
@@ -159,6 +167,7 @@ public class BudgetCalculatorController {
 		    		}
 		    	}
 			}
+
 		
 		}
 		if (amountError == false) {
@@ -272,7 +281,7 @@ public class BudgetCalculatorController {
 		
 		incomeContainer.getChildren().addAll(primaryIncomeNamePrompt, primaryIncomeNameBox, primaryIncomeTitle, primaryIncomeContainer,primaryIncomePeriodTitle, primaryIncomePeriod, incomeErrorLabel, doneButton);
 		
-		Scene primaryIncomeScene = new Scene(incomeContainer);
+		Scene primaryIncomeScene = new Scene(incomeContainer, 700, 700);
 		appStage.setScene(primaryIncomeScene);		
 	}
 	
@@ -322,6 +331,7 @@ public class BudgetCalculatorController {
 	
 		Label savingsErrorLabel = new Label("");		
 		
+
 	@FXML 
 	void getSavings (ActionEvent enterSavings) {
 		Scene mainScene = appStage.getScene();
@@ -437,6 +447,7 @@ public class BudgetCalculatorController {
 	    		}
 			}
 		}
+
 		
 		int targetDollars = 0;
 		int targetCents = 0;
@@ -563,6 +574,7 @@ public class BudgetCalculatorController {
 		System.out.println("Current Savings: " + currentSavingsAmount);	
 		System.out.println("Target Savings: " + targetSavingsAmount);	
 		System.out.println("Your final budget is : $" + (budget/100) + "." + (budget%100));
+
 	}
 		
 

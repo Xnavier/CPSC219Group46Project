@@ -237,62 +237,204 @@ public class BudgetCalculatorController {
     	appStage.setScene(mainscene);
 	}
 	
-		int savings = 0;
-
-
-		private Scene mainScene;
-		public int getTotalSavings (Scene mainScene, Label savingsLabel2) {
-			appStage.setScene(mainScene);
-			savings =+ Integer.parseInt(savingsLabel2.getText());
-			return savings;
+		Label savingsErrorLabel = new Label("");		
 		
-			
-		}
 	@FXML 
 	void getSavings (ActionEvent enterSavings) {
+		Scene mainScene = appStage.getScene();
 		
-		VBox savingsBox = new VBox();{
+		VBox savingsBox = new VBox();
 		
-		
-		Label savingsStartLabel = new Label("Enter the date you would like to start budgeting from:");
+		Label savingsStartLabel = new Label("Enter the date you would like to start budgeting from (day/month/year):");
 		HBox startContainer = new HBox();
-		ChoiceBox<int> startDateDay = new Choicebox<int>();
+		ChoiceBox<String> startDateDay = new ChoiceBox<String>();
+		startDateDay.getItems().addAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31");
+		ChoiceBox<String> startDateMonth = new ChoiceBox<String>();
+		startDateMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+		TextField startDateYear = new TextField();
+		startContainer.getChildren().addAll(startDateDay, startDateMonth, startDateYear);
+		savingsBox.getChildren().addAll(savingsStartLabel, startContainer);
+		
+		Label savingsEndLabel = new Label("Enter the date you would like to stop budgeting until (day/month/year):");
+		HBox endContainer = new HBox();
+		ChoiceBox<String> endDateDay = new ChoiceBox<String>();
+		endDateDay.getItems().addAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31");
+		ChoiceBox<String> endDateMonth = new ChoiceBox<String>();
+		endDateMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+		TextField endDateYear = new TextField();
+		endContainer.getChildren().addAll(endDateDay, endDateMonth, endDateYear);
+		savingsBox.getChildren().addAll(savingsEndLabel, endContainer);
 			
-			
+		Label savingsDirectionsLabel = new Label("Enter the amount of money you would like to save:");
 		HBox savingsToGet = new HBox();
-		Label savingsDirectionsLabel = new Label("Enter the amount of money you would like to save.");
 		Label savingsDollarLabel = new Label("Dollars:");
 		TextField savingsDollarsTextField = new TextField();
 		Label savingsCentsLabel = new Label ("Cents");
 		TextField savingsCentsTextField = new TextField();
-		int wantedSavingsDollars = 0;
-		wantedSavingsDollars = ((Integer.parseInt(savingsDollarsTextField.getText()))+ ((Integer.parseInt(savingsCentsTextField.getText())/ 100)))
-		;
 		savingsToGet.getChildren().addAll(savingsDollarLabel, savingsDollarsTextField, savingsCentsLabel, savingsCentsTextField);
 		savingsBox.getChildren().addAll(savingsDirectionsLabel, savingsToGet);
 		
-		savingsLabel2.setText(String.format("%.2f",wantedSavingsDollars));
+		Label savedDirectionsLabel = new Label("Enter your current savings:");
+		HBox savedMoneyBox = new HBox();
+		Label savedDollarLabel = new Label("Dollars:");
+		TextField savedDollarsTextField = new TextField();
+		Label savedCentsLabel = new Label ("Cents");
+		TextField savedCentsTextField = new TextField();
+		savedMoneyBox.getChildren().addAll(savedDollarLabel, savedDollarsTextField, savedCentsLabel, savedCentsTextField);
+		savingsBox.getChildren().addAll(savedDirectionsLabel, savedMoneyBox);
+
 		
+		// savingsLabel2.setText(String.format("%.2f",wantedSavingsDollars));
+
 		Button sDoneButton = new Button ("Done");
-		sDoneButton.setOnAction(finEvent -> getTotalSavings(mainScene, savingsLabel2));}
+		sDoneButton.setOnAction(doneEvent -> processSavings(mainScene, startDateDay, startDateMonth, startDateYear, endDateDay, endDateMonth, endDateYear, savingsDollarsTextField, savingsCentsTextField, savedDollarsTextField, savedCentsTextField));
+		savingsBox.getChildren().addAll(savingsErrorLabel, sDoneButton);
 		
 		Scene savingsScene = new Scene (savingsBox);
 		appStage.setScene(savingsScene);
-		
-		
-		
-				
-		
-		
-		
-		
-	
 	}
-		
+	
+	TransactionList savingsList = new TransactionList("Savings List");	
+	Date startDate = new Date();
+	Date endDate = new Date();
+
+	void processSavings(Scene mainScene, ChoiceBox<String> startDateDay, ChoiceBox<String> startDateMonth, TextField startDateYear, ChoiceBox<String> endDateDay, ChoiceBox<String> endDateMonth, TextField endDateYear, TextField savingsDollarsTextField, TextField savingsCentsTextField, TextField savedDollarsTextField, TextField savedCentsTextField) {
+		boolean dateError = false;
+		boolean saveAmountError = false;
+		for (char c : startDateYear.getText().toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			dateError = true;
+    			savingsErrorLabel.setText("Invalid Start Year");
+    		}
+		}
+		if (dateError == false && saveAmountError == false) {
+			for (char c : endDateYear.getText().toCharArray()) {
+    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+					dateError = true;
+					savingsErrorLabel.setText("Invalid End Year");
+				}
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			for (char c : savingsDollarsTextField.getText().toCharArray()) {
+	    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+					saveAmountError = true;
+					savingsErrorLabel.setText("Invalid Target Savings Dollar Amount");
+	    		}
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			for (char c : savingsCentsTextField.getText().toCharArray()) {
+	    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+					saveAmountError = true;
+					savingsErrorLabel.setText("Invalid Target Savings Cents Amount");
+	    		}
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			for (char c : savedDollarsTextField.getText().toCharArray()) {
+	    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+					saveAmountError = true;
+					savingsErrorLabel.setText("Invalid Current Savings Dollar Amount");
+	    		}
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			for (char c : savedCentsTextField.getText().toCharArray()) {
+	    		//Check if character is a digit
+				if (!Character.isDigit(c)) {
+					saveAmountError = true;
+					savingsErrorLabel.setText("Invalid Current Savings Cents Amount");
+	    		}
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			try {
+    			Payment currentSavings = new Payment("Current Savings", Integer.parseInt(savedDollarsTextField.getText()), Integer.parseInt(savedCentsTextField.getText()));
+    			savingsList.addTransaction(currentSavings);
+    		} catch (InvalidPaymentException e) {
+    			savingsErrorLabel.setText(e.getMessage());
+    		}
+			try {
+    			Payment targetSavings = new Payment("Target Savings", Integer.parseInt(savingsDollarsTextField.getText()), Integer.parseInt(savingsCentsTextField.getText()));
+    			savingsList.addTransaction(targetSavings);
+    		} catch (InvalidPaymentException e) {
+    			savingsErrorLabel.setText(e.getMessage());
+    		}
+			String month = startDateMonth.getValue();
+			int monthNumber = 0;
+			if (month == "January") {
+				monthNumber = 0;
+			} else if (month == "February") {
+				monthNumber = 1;
+			} else if (month == "March") {
+				monthNumber = 2;
+			} else if (month == "April") {
+				monthNumber = 3;
+			} else if (month == "May") {
+				monthNumber = 4;
+			} else if (month == "June") {
+				monthNumber = 5;
+			} else if (month == "July") {
+				monthNumber = 6;
+			} else if (month == "August") {
+				monthNumber = 7;
+			} else if (month == "September") {
+				monthNumber = 8;
+			} else if (month == "October") {
+				monthNumber = 9;
+			} else if (month == "November") {
+				monthNumber = 10;
+			} else if (month == "December") {
+				monthNumber = 11;
+			}
+			startDate = new Date(Integer.parseInt(startDateYear.getText()), monthNumber, Integer.parseInt(startDateDay.getValue()));
+			String endMonth = endDateMonth.getValue();
+			int endMonthNumber = 0;
+			if (month == "January") {
+				endMonthNumber = 0;
+			} else if (month == "February") {
+				endMonthNumber = 1;
+			} else if (month == "March") {
+				endMonthNumber = 2;
+			} else if (month == "April") {
+				endMonthNumber = 3;
+			} else if (month == "May") {
+				endMonthNumber = 4;
+			} else if (month == "June") {
+				endMonthNumber = 5;
+			} else if (month == "July") {
+				endMonthNumber = 6;
+			} else if (month == "August") {
+				endMonthNumber = 7;
+			} else if (month == "September") {
+				endMonthNumber = 8;
+			} else if (month == "October") {
+				endMonthNumber = 9;
+			} else if (month == "November") {
+				endMonthNumber = 10;
+			} else if (month == "December") {
+				endMonthNumber = 11;
+			}
+			endDate = new Date(Integer.parseInt(endDateYear.getText()), endMonthNumber, Integer.parseInt(endDateDay.getValue()));
+			
+			if (endDate.before(startDate)) {
+				dateError = true;
+			}
+		}
+		if (dateError == false && saveAmountError == false) {
+			appStage.setScene(mainScene);
+		}
+	}
+	
 	void getFinal(ActionEvent finalCalc) {
 	
-		
-		double budget = income + savings - expense;
+		int budget = 0;
 		
 	System.out.println("Your final budget is :" + budget);
 	}

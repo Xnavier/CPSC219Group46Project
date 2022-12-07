@@ -2,6 +2,7 @@ package app;
 
 import javafx.event.ActionEvent;
 import java.util.*;
+
 import java.math.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ public class BudgetCalculatorController {
 	Stage appStage;
 
 
-	    @FXML
+	   @FXML
 	    private Label directionsLabel;
 
 	    @FXML
@@ -66,22 +67,7 @@ public class BudgetCalculatorController {
 	    void f50808(ActionEvent event) {
 
 	    }
-
 	    
-	   
-    
- 
-    		
-    		
-    		
-   
-    
-    
-    
- 
-
-	
-  
   
   	int expense= 0;
   	public int calculateExpense (Scene mainScene, Label expenseLabel) {
@@ -194,16 +180,20 @@ int income = 0;
 		
 	}
 	
+	Label incomeErrorLabel = new Label();
+	RecurringTransactionList incomeList = new RecurringTransactionList("Sources of Income");
+	
 	@FXML
 	void getIncome (ActionEvent enterIncome) {
 		Scene mainScene = appStage.getScene();
-		
 		VBox incomeContainer = new VBox();
 		Label primaryIncomeTitle = new Label ("Enter the amount and period of your primary source of income:");
 		HBox primaryIncomeContainer = new HBox();
-		Label primaryIncomeLabel = new Label ("Amount in Dollars: ");
-		TextField primaryIncomeAmount = new TextField();
-		primaryIncomeContainer.getChildren().addAll(primaryIncomeLabel, primaryIncomeAmount);
+		Label primaryIncomeLabelDollars = new Label ("Dollars: ");
+		TextField primaryIncomeAmountDollars = new TextField();
+		Label primaryIncomeLabelCents = new Label ("Cents:");
+		TextField primaryIncomeAmountCents = new TextField();
+		primaryIncomeContainer.getChildren().addAll(primaryIncomeLabelDollars, primaryIncomeAmountDollars, primaryIncomeLabelCents, primaryIncomeAmountCents);
 		HBox primaryIncomePeriod = new HBox();
 		Label primaryIncomePeriodLabel = new Label("Period of Income:");
 		TextField primaryIncomePeriodNumber = new TextField();
@@ -215,14 +205,61 @@ int income = 0;
 		
 		primaryIncomePeriod.getChildren().addAll(primaryIncomePeriodLabel, primaryIncomePeriodNumber, primaryIncomePeriodTime);
 		
-		incomeContainer.getChildren().addAll(primaryIncomeTitle, primaryIncomeContainer, primaryIncomePeriod);
+		
+		
+		Button doneButton = new Button ("Done");
+		doneButton.setOnAction(doneEvent -> getIncomeHelper(mainScene, primaryIncomeAmountDollars, primaryIncomeAmountCents, primaryIncomePeriodNumber, primaryIncomePeriodTime.getValue(), "Primary Income"));
+		
+		incomeContainer.getChildren().addAll(primaryIncomeTitle, primaryIncomeContainer, primaryIncomePeriod, incomeErrorLabel, doneButton);
 		
 		Scene primaryIncomeScene = new Scene(incomeContainer);
-		appStage.setScene(primaryIncomeScene);
-		
-		
-		
+		appStage.setScene(primaryIncomeScene);		
 	}
+	
+	void getIncomeHelper(Scene mainscene, TextField amountDollars, TextField amountCents, TextField periodNumber, String periodTime, String name) {
+		incomeErrorLabel.setText("");		
+		String centsString = amountCents.getText();
+		String dollarsString = amountDollars.getText();
+		boolean amountError = false;
+		for (char c : dollarsString.toCharArray()) {
+    		//Check if character is a digit
+			if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				incomeErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				incomeErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+		}	
+		for (char c : centsString.toCharArray()) {
+    		//Check if character is a digit
+    		if (!Character.isDigit(c)) {
+    			if (c == '-') {
+    				incomeErrorLabel.setText("Amount should be positive");
+					amountError = true;
+    			//returns error message for invalid characters
+    			} else {
+    				incomeErrorLabel.setText("Do not use " + c + " in the entry. Enter a valid number. ");
+    				amountError = true;
+    			}
+    		}
+    		}
+		
+    	if (amountError == false) { 
+    		try {
+    			RecurringPayment incomeSource = new RecurringPayment(name, Integer.parseInt(dollarsString), Integer.parseInt(centsString));
+    			incomeSource.setPeriod(Integer.parseInt(periodNumber.getText()), periodTime);
+    			incomeList.addTransaction(incomeSource);
+    		} catch (InvalidPaymentException e) {
+    			incomeErrorLabel.setText(e.getMessage());
+    		}
+    	}
+    	appStage.setScene(mainscene);
+	}
+	
 		int savings = 0;
 
 

@@ -4,6 +4,10 @@ import java.util.Date;
 public class RecurringPayment extends Payment{
 	private int period = 1;
 	
+	public RecurringPayment(String name, int dollar, int cent) throws InvalidPaymentException {
+		super(name, dollar, cent);
+	}
+	
 	public RecurringPayment(String name, int dollar, int cent, int days) throws InvalidPaymentException {
 		super(name, dollar, cent);
 		if (days < 0) {

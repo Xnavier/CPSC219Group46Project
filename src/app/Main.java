@@ -18,7 +18,7 @@ public class Main extends Application {
 		VBox root = loader.load(new FileInputStream("src/app/BudgetMainSceneView.fxml"));
 		BudgetCalculatorController controller = (BudgetCalculatorController)loader.getController();
 		controller.appStage = primaryStage;
-		Scene scene = new Scene(root,600,300);
+		Scene scene = new Scene(root,800,500);
 		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Group 46 Budget Calculator");

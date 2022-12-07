@@ -17,9 +17,7 @@ import javafx.stage.Stage;
 
 public class BudgetCalculatorController {
 	Stage appStage;
-
-
-	   
+	  
 
 	    @FXML
 	    private Label expenseLabel;

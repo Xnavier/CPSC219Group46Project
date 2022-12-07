@@ -39,7 +39,7 @@
       <HBox prefHeight = "200.0" prefWidth = "200.0">
       	<children>
       	<Label fx:id = "budgetLabel" text ="Calculate your budget"/>
-      	<Button fx:id ="getBudgetButton" text ="Calculate"/>
+      	<Button fx:id ="getBudgetButton" mnemonicParsing="false" onAction = "#getFinal" text ="Calculate"/>
       	<Label fx:id = "budgetLabel2" text = ""/>
       	</children>
       	

@@ -78,7 +78,7 @@ public class BudgetCalculatorController {
     	
     	HBox foodField = new HBox();
     		
-    	Label foodEstimate = new Label("Estimate the value of the food expenses per month:");
+    	Label foodEstimate = new Label("Estimate the value of your food expenses per month:");
     	Label foodDollarLabel = new Label("Dollars: ");
     	TextField foodExpenseDollars = new TextField();
     	Label foodCentsLabel = new Label("Cents: ");
@@ -377,7 +377,8 @@ public class BudgetCalculatorController {
 		appStage.setScene(savingsScene);
 	}
 	
-	TransactionList savingsList = new TransactionList("Savings List");	
+	Payment currentSavings = new Payment();
+	Payment targetSavings = new Payment();
 	Date startDate = new Date();
 	Date endDate = new Date();
 
@@ -443,29 +444,27 @@ public class BudgetCalculatorController {
 		int savedCents = 0;
 		
 		if (!(savedDollarsTextField.getText() == "")) {
-			savedDollars = Integer.parseInt(savingsDollarsTextField.getText());
+			savedDollars = Integer.parseInt(savedDollarsTextField.getText());
 		}
 		if (!(savedDollarsTextField.getText() == "")) {
-			savedCents = Integer.parseInt(savingsDollarsTextField.getText());
+			savedCents = Integer.parseInt(savedCentsTextField.getText());
 		}
 		if (!(savingsDollarsTextField.getText() == "")) {
 			targetDollars = Integer.parseInt(savingsDollarsTextField.getText());
 		}
 		if (!(savingsCentsTextField.getText() == "")) {
-			targetCents = Integer.parseInt(savingsDollarsTextField.getText());
+			targetCents = Integer.parseInt(savingsCentsTextField.getText());
 		}
 		
 		
 		if (dateError == false && saveAmountError == false) {
 			try {
-    			Payment currentSavings = new Payment("Current Savings", savedDollars, savedCents);
-    			savingsList.addTransaction(currentSavings);
+    			currentSavings = new Payment("Current Savings", savedDollars, savedCents);
     		} catch (InvalidPaymentException e) {
     			savingsErrorLabel.setText(e.getMessage());
     		}
 			try {
-    			Payment targetSavings = new Payment("Target Savings", targetDollars, targetCents);
-    			savingsList.addTransaction(targetSavings);
+    			targetSavings = new Payment("Target Savings", targetDollars, targetCents);
     		} catch (InvalidPaymentException e) {
     			savingsErrorLabel.setText(e.getMessage());
     		}
@@ -535,11 +534,35 @@ public class BudgetCalculatorController {
 		}
 	}
 	
-	void getFinal(ActionEvent finalCalc) {
+	long budget = 0;
+	long netIncome = 0;
+	long netExpense = 0;
+	long currentSavingsAmount = 0;
+	long targetSavingsAmount = 0;
 	
-		int budget = 0;
+	public void getFinal(ActionEvent finalCalc) {
+		netIncome = incomeList.getTotalAmount(startDate, endDate);
 		
-	System.out.println("Your final budget is :" + budget);
+		netExpense = 0 - recurringExpenseList.getTotalAmount(startDate, endDate);
+		
+		currentSavingsAmount = currentSavings.getDollars()*100 + currentSavings.getCents();
+			
+		targetSavingsAmount = targetSavings.getDollars()*100 + targetSavings.getCents();
+			
+		budget = netIncome - netExpense + currentSavingsAmount - targetSavingsAmount;
+		
+		if (budget >= 0) {
+			budgetLabel2.setText("You have met your target savings of $" + (targetSavingsAmount/100) + "." + (targetSavingsAmount%100) + " with a surplus of $" + (budget/100) + "." + (budget%100));
+		} else {
+			budgetLabel2.setText("You were unable to meet your target savings of $" + (targetSavingsAmount/100) + "." + (targetSavingsAmount%100) + " and have a deficit of $" + (budget/100) + "." + (budget%100));
+		}
+		
+		
+		System.out.println("Net Income: " + netIncome);
+		System.out.println("Net Expenses: " + netExpense);
+		System.out.println("Current Savings: " + currentSavingsAmount);	
+		System.out.println("Target Savings: " + targetSavingsAmount);	
+		System.out.println("Your final budget is : $" + (budget/100) + "." + (budget%100));
 	}
 		
 

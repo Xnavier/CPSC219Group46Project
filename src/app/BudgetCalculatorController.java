@@ -117,7 +117,7 @@ public class BudgetCalculatorController {
     		Label utCents = new Label("Amount in Cents");
     		TextField utilitiesCents = new TextField();
     		
-    		utilitiesField.getChildren().addAll( utDollars,utilitiesDollars,utCents, utilitiesCents);
+    		utilitiesField.getChildren().addAll(utDollars,utilitiesDollars,utCents, utilitiesCents);
     		
     		HBox uPeriod = new HBox();
     		Label uPeriodLabel = new Label ("Period of time over which costs occur");
@@ -156,7 +156,7 @@ public class BudgetCalculatorController {
     		
     		
     		rPeriod.getChildren().addAll(rPeriodLabel, periodPayRa, rPeriods);
-    		expenseBox.getChildren().addAll(foodField, foodPeriod, utilitiesField,uPeriod, randomsField, rPeriod);
+    		expenseBox.getChildren().addAll(foodLabelBox, foodField, foodPeriod, utilitiesLabelBox, utilitiesField, uPeriod, randomLabelBox, randomsField, rPeriod);
     	
     	
     	Scene expenseScene = new Scene (expenseBox);

@@ -69,6 +69,9 @@ public class BudgetCalculatorController {
 	    @FXML
 	    private Button getBudgetButton;
 	    
+	    @FXML
+	    private Label budgetLabel2;
+	    
 
 	    @FXML
 	    void f50808(ActionEvent event) {

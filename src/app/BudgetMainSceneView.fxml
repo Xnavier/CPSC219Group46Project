@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
@@ -10,37 +11,113 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 
-<VBox prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.BudgetCalculatorController">
+<VBox prefHeight="2000" prefWidth="1000" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.BudgetCalculatorController">
    <children>
-      
-      <HBox prefHeight="200.0" prefWidth="200.0" >
+   <HBox>
       <children>
-      	<Label fx:id = "incomeSceneBaitLabel" text = "Calculate your income"/>
-      	<Button fx:id = "incomeBaitButton" mnemonicParsing = "false" onAction = "#getIncome" text = "Income"
-      	textFill = "GREEN" />
-      	<Label fx:id = "incomeLabel" text = ""/>
+      <Label fx:id="newDirections" text="Welcome to our Budget Calculator. Please use the following buttons to get your budget.">
+               <font>
+                  <Font name="Comic Sans MS Bold Italic" size="10.0" />
+               </font>
+            </Label>
+      </children>
+   
+   
+   </HBox>
+ 
+      
+      <HBox prefHeight="200.0" prefWidth="200.0">
+      <children>
+      	<Label fx:id="incomeSceneBaitLabel" text="Calculate your income">
+      	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+      	</Label>
+      	<Button fx:id="incomeBaitButton" mnemonicParsing="false" onAction="#getIncome" text="Income" textFill="GREEN">
+      	   	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+      	</Button>
+   <Label fx:id="incomeLabel" text="">
+      	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+      	</Label>
       	</children>
       	</HBox>
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="expenseLabel" text="Calculate Expenses" />
-            <Button fx:id="getExpensesButton" mnemonicParsing="false" onAction = "#getExpense" text="Expenses" textFill="#f50808" />
-            <Label fx:id = "expenseLabel" text = ""/>
+            <Label fx:id="expenseLabel" text="Calculate Expenses">
+        	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+                </Label>
+            <Button fx:id="getExpensesButton" mnemonicParsing="false" onAction="#getExpense" text="Expenses" textFill="#f50808">
+            <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Impact" size="18.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
       
       <HBox prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="savingsLabel" text="Calculate your savings" />
-            <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" onAction = "#getSavings" text="Savings" />
-            <Label fx:id = "savingsLabel2" text = ""/>
+            <Label fx:id="savingsLabel" text="Calculate your savings">
+             <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Label>
+           
+            <Button fx:id="getSavingsSceneLabel" mnemonicParsing="false" onAction="#getSavings" text="Savings" textFill="TEAL">
+               	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Arial Black" size="18.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
-      <HBox prefHeight = "200.0" prefWidth = "200.0">
+      <HBox prefHeight = "200.0" prefWidth="200.0">
+      <Label fx:id ="dateLabel" text = "Start Date to budget"/>
+      <TextField fx:id = "startDateField"/>
+      <Label fx:id ="dateLabel2" text = "End Date"/>
+      <TextField fx:id = "endDateField"/>
+       </HBox>
+      <HBox prefHeight="200.0" prefWidth="200.0">
       	<children>
-      	<Label fx:id = "budgetLabel" text ="Calculate your budget"/>
-      	<Button fx:id ="getBudgetButton" text ="Calculate"/>
-      	<Label fx:id = "budgetLabel2" text = ""/>
+      	<Label fx:id="budgetLabel" text="Calculate your budget">
+      	   	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="Comic Sans MS Bold Italic" size="24.0" />
+               </font>
+        </Label>
+        
+      	<Button fx:id="getBudgetButton" mnemonicParsing = "false" onAction = "#getBudget" text="Calculate" textFill="BLUEVIOLET">
+      	   	<HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="60.0" top="10.0" />
+                </HBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="28.0" />
+               </font>
+      	</Button>
       	</children>
       	
       

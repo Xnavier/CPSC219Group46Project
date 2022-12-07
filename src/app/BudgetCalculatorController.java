@@ -1,8 +1,9 @@
 package app;
 
 import javafx.event.ActionEvent;
-import java.util.*;
 
+import java.util.*;
+import java.util.Date;
 import java.math.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -18,8 +19,7 @@ public class BudgetCalculatorController {
 	Stage appStage;
 
 
-	   @FXML
-	    private Label directionsLabel;
+	   
 
 	    @FXML
 	    private Label expenseLabel;
@@ -35,24 +35,33 @@ public class BudgetCalculatorController {
 
 	    @FXML
 	    private Label savingsLabel;
-	    
-	    @FXML 
-	    private Label savingsLabel2;
-
-	    @FXML
-	    private TextField NumOfUsersTextField;
 
 	    @FXML
 	    private Button getSavingsSceneLabel;
 
 	    @FXML
 	    private Button getExpensesButton;
-
-	    @FXML
-	    private Button RecordNumUsersButton;
+	     
+	    @FXML 
+	    private Label newDirections;
 	    
 	    @FXML 
-	    private Label numUsersLabel;
+	    private TextField startDateField;
+	    
+	   @FXML
+	    private TextField endDateField;
+	   
+	   @FXML
+	   private Label dateLabel;
+	   
+	   @FXML
+	   private Label dateLabel2;
+	   
+	   
+	    
+
+	    
+	   
 	    
 	    @FXML
 	    private Label budgetLabel;
@@ -60,8 +69,6 @@ public class BudgetCalculatorController {
 	    @FXML
 	    private Button getBudgetButton;
 	    
-	    @FXML 
-	    private Label budgetLabel2;
 
 	    @FXML
 	    void f50808(ActionEvent event) {
@@ -156,10 +163,10 @@ public class BudgetCalculatorController {
     		
     		
     		rPeriod.getChildren().addAll(rPeriodLabel, periodPayRa, rPeriods);
-    		expenseBox.getChildren().addAll(foodField, foodPeriod, utilitiesField,uPeriod, randomsField, rPeriod);
+    		expenseBox.getChildren().addAll(foodField, foodPeriod, utilitiesField,uPeriod, randomsField, rPeriod, doneButton);
     	
     	
-    	Scene expenseScene = new Scene (expenseBox);
+    	Scene expenseScene = new Scene (expenseBox, 700, 300);
     	appStage.setScene(expenseScene);
 		
     	
@@ -327,7 +334,7 @@ public class BudgetCalculatorController {
 		
 		incomeContainer.getChildren().addAll(primaryIncomeTitle, primaryIncomeContainer, primaryIncomePeriod, incomeErrorLabel, doneButton);
 		
-		Scene primaryIncomeScene = new Scene(incomeContainer);
+		Scene primaryIncomeScene = new Scene(incomeContainer, 700, 700);
 		appStage.setScene(primaryIncomeScene);		
 	}
 	
@@ -406,7 +413,7 @@ public class BudgetCalculatorController {
 		
 		 
 		savingsBox.getChildren().addAll( savingsTitle, savingsToGet, savingPeriod);
-		Scene savingScene = new Scene(savingsBox);
+		Scene savingScene = new Scene(savingsBox, 700, 700);
 		appStage.setScene(savingScene);
 		
 		
@@ -419,6 +426,27 @@ public class BudgetCalculatorController {
 		
 	
 	}	
+	
+	public int findBudget (Date startDate, Date endDate) {
+		
+		startDate = startDateField.getText();
+		endDate = endDateField.getText();
+		budget = savings + "incomelist".getTotalAmount(startDate, endDate) - "expenselist".getTotalAmount(startDate, endDate);
+		
+		
+		
+		return 0;
+		
+		
+	}
+	
+	@FXML
+	void getBudget (ActionEvent budgetEvent) {
+		
+		
+		
+		
+	}
 		
 
 		

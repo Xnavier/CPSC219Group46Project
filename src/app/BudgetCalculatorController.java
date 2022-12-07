@@ -84,7 +84,7 @@ public class BudgetCalculatorController {
 	public void getExpense(ActionEvent enterExpenseEvent) {
     	Scene mainScene = appStage.getScene();
     	
-    	int finExpense = 0;
+  
     	VBox expenseBox = new VBox();
     	Label expenseLabel = new Label ("Add together all of your expenses");
     	
@@ -137,7 +137,7 @@ public class BudgetCalculatorController {
     		uPeriod.getChildren().addAll(uPeriodLabel, periodPayUt, uPeriods);
     		
     		HBox randomLabelBox = new HBox();
-    		Label randomEstimate = new Label ("Estimate of randomExpenses");
+    		Label randomEstimate = new Label ("Estimate of random Expenses");
     		randomLabelBox.getChildren().addAll(randomEstimate);
     		
     		HBox randomsField = new HBox();
@@ -163,7 +163,7 @@ public class BudgetCalculatorController {
     		
     		
     		rPeriod.getChildren().addAll(rPeriodLabel, periodPayRa, rPeriods);
-    		expenseBox.getChildren().addAll(foodField, foodPeriod, utilitiesField,uPeriod, randomsField, rPeriod, doneButton);
+    		expenseBox.getChildren().addAll(expenseLabel,foodLabelBox, foodField, foodPeriod, utilitiesLabelBox, utilitiesField,uPeriod, randomLabelBox, randomsField, rPeriod, doneButton);
     	
     	
     	Scene expenseScene = new Scene (expenseBox, 700, 300);

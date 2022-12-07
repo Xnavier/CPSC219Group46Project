@@ -353,15 +353,35 @@ public class BudgetCalculatorController {
 	    		}
 			}
 		}
+		
+		int targetDollars = 0;
+		int targetCents = 0;
+		int savedDollars = 0;
+		int savedCents = 0;
+		
+		if (!(savedDollarsTextField.getText() == "")) {
+			savedDollars = Integer.parseInt(savingsDollarsTextField.getText());
+		}
+		if (!(savedDollarsTextField.getText() == "")) {
+			savedCents = Integer.parseInt(savingsDollarsTextField.getText());
+		}
+		if (!(savingsDollarsTextField.getText() == "")) {
+			targetDollars = Integer.parseInt(savingsDollarsTextField.getText());
+		}
+		if (!(savingsCentsTextField.getText() == "")) {
+			targetCents = Integer.parseInt(savingsDollarsTextField.getText());
+		}
+		
+		
 		if (dateError == false && saveAmountError == false) {
 			try {
-    			Payment currentSavings = new Payment("Current Savings", Integer.parseInt(savedDollarsTextField.getText()), Integer.parseInt(savedCentsTextField.getText()));
+    			Payment currentSavings = new Payment("Current Savings", savedDollars, savedCents);
     			savingsList.addTransaction(currentSavings);
     		} catch (InvalidPaymentException e) {
     			savingsErrorLabel.setText(e.getMessage());
     		}
 			try {
-    			Payment targetSavings = new Payment("Target Savings", Integer.parseInt(savingsDollarsTextField.getText()), Integer.parseInt(savingsCentsTextField.getText()));
+    			Payment targetSavings = new Payment("Target Savings", targetDollars, targetCents);
     			savingsList.addTransaction(targetSavings);
     		} catch (InvalidPaymentException e) {
     			savingsErrorLabel.setText(e.getMessage());

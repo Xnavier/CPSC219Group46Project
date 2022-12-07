@@ -253,15 +253,23 @@ public class BudgetCalculatorController {
 		
 		VBox savingsBox = new VBox();{
 		
+		
+		Label savingsStartLabel = new Label("Enter the date you would like to start budgeting from:");
+		HBox startContainer = new HBox();
+		ChoiceBox<int> startDateDay = new Choicebox<int>();
+			
+			
 		HBox savingsToGet = new HBox();
 		Label savingsDirectionsLabel = new Label("Enter the amount of money you would like to save.");
+		Label savingsDollarLabel = new Label("Dollars:");
 		TextField savingsDollarsTextField = new TextField();
+		Label savingsCentsLabel = new Label ("Cents");
 		TextField savingsCentsTextField = new TextField();
 		int wantedSavingsDollars = 0;
 		wantedSavingsDollars = ((Integer.parseInt(savingsDollarsTextField.getText()))+ ((Integer.parseInt(savingsCentsTextField.getText())/ 100)))
 		;
-		savingsToGet.getChildren().addAll(savingsDirectionsLabel, savingsDollarsTextField, savingsCentsTextField);
-		savingsBox.getChildren().addAll(savingsToGet);
+		savingsToGet.getChildren().addAll(savingsDollarLabel, savingsDollarsTextField, savingsCentsLabel, savingsCentsTextField);
+		savingsBox.getChildren().addAll(savingsDirectionsLabel, savingsToGet);
 		
 		savingsLabel2.setText(String.format("%.2f",wantedSavingsDollars));
 		

@@ -260,7 +260,7 @@ public class BudgetCalculatorController {
 		}	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString), Integer.parseInt(centsString));
+    			RecurringPayment expenseSource = new RecurringPayment("Food Expenses", Integer.parseInt(dollarsString), Integer.parseInt(centsString));
     			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), periodTime);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {
@@ -270,7 +270,7 @@ public class BudgetCalculatorController {
     	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString2), Integer.parseInt(centsString2));
+    			RecurringPayment expenseSource = new RecurringPayment("Utilities Expenses", Integer.parseInt(dollarsString2), Integer.parseInt(centsString2));
     			expenseSource.setPeriod(Integer.parseInt(periodNumber.getText()), string);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {
@@ -280,7 +280,7 @@ public class BudgetCalculatorController {
     	
     	if (amountError == false) { 
     		try {
-    			RecurringPayment expenseSource = new RecurringPayment(name, Integer.parseInt(dollarsString3), Integer.parseInt(centsString3));
+    			RecurringPayment expenseSource = new RecurringPayment("Miscellaneous Recurring Expenses", Integer.parseInt(dollarsString3), Integer.parseInt(centsString3));
     			expenseSource.setPeriod(Integer.parseInt(periodPayUt.getText()), string2);
     			expenseList.addTransaction(expenseSource);
     		} catch (InvalidPaymentException e) {

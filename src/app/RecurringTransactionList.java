@@ -5,6 +5,10 @@ import java.util.Date;
 
 import app.Payment;
 
+/**
+ * Same functionality as TransactionList, but handles recurring payments instead.
+ */
+
 public class RecurringTransactionList {
 	private String name;
 	private ArrayList<RecurringPayment> paymentList = new ArrayList<RecurringPayment>();

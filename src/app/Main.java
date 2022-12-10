@@ -10,6 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
+/**
+ * Main class of the budget calculator. Calls the main scene of the calculator.
+ */
+
 public class Main extends Application {
 
 	@Override

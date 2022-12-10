@@ -1,10 +1,17 @@
 package app;
 import java.util.Date;
 
+/**
+ * Represents a monetary transaction.
+ */
 
 public class Payment {
+	
 	private int dollars = 0;
 	private int cents = 0;
+	/**
+	 * Date of the transaction, used to determine if the transaction should be considered.
+	 */
 	private Date startDate = new Date();
 	private String name = "";	
 	

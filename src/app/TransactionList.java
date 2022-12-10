@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 import app.Payment;
 
+/**
+ * Used to keep a group of payments. 
+ *
+ */
+
 public class TransactionList {
 	private String name;
 	private ArrayList<Payment> paymentList = new ArrayList<Payment>();
@@ -24,6 +29,9 @@ public class TransactionList {
 		paymentList.add(payment);
 	}
 	
+	/**
+	 * Calculates the total monetary value of all transactions in the list.
+	 */
 	public long getTotalAmount() {
 		int length = paymentList.size();
 		int counter = 0;

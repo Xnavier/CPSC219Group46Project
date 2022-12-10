@@ -1,6 +1,12 @@
 package app;
 import java.util.Date;
 
+/**
+ * Extension of the payment class with one additional variable, period.
+ * This allows this class to keep track of a repeated payment of the same monetary value.
+ *
+ */
+
 public class RecurringPayment extends Payment{
 	private int period = 1;
 	

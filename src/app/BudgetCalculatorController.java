@@ -1,6 +1,7 @@
 package app;
 
 import javafx.event.ActionEvent;
+import java.lang.*;
 
 import java.util.*;
 import java.util.Date;
@@ -78,7 +79,12 @@ public class BudgetCalculatorController {
 	    
 
 	Label expenseErrorLabel = new Label("");
-	    
+	
+	/**
+	 * Allows the user to enter their monthly expenses.
+	 * Method can be called multiple times to increase expenses.
+	 */
+	
 	@FXML
 	public void getExpense(ActionEvent enterExpenseEvent) {
     	Scene mainScene = appStage.getScene();
@@ -125,6 +131,17 @@ public class BudgetCalculatorController {
 	
 	
 	RecurringTransactionList recurringExpenseList = new RecurringTransactionList("Recurring Expenses");
+	
+	/**
+	 * Helper method for getExpense. Handles errors, and returns to the main scene.
+	 * @param mainScene
+	 * @param foodExpenseDollars
+	 * @param foodExpenseCents
+	 * @param utilitiesDollars
+	 * @param utilitiesCents
+	 * @param randomExpenseDollars
+	 * @param randomExpenseCents
+	 */
 	
 	void getExpenseHelper(Scene mainScene, TextField foodExpenseDollars, TextField foodExpenseCents, TextField utilitiesDollars, TextField utilitiesCents, TextField randomExpenseDollars, TextField randomExpenseCents) {
 		boolean amountError = false;
@@ -275,6 +292,13 @@ public class BudgetCalculatorController {
 	Label incomeErrorLabel = new Label();
 	RecurringTransactionList incomeList = new RecurringTransactionList("Sources of Income");
 	
+	/**
+	 * Allows user to enter an income source.
+	 * Method can be called multiple times to enter multiple income sources.
+	 * @param enterIncome
+	 */
+			
+	
 	@FXML
 	void getIncome (ActionEvent enterIncome) {
 		Scene mainScene = appStage.getScene();
@@ -313,6 +337,16 @@ public class BudgetCalculatorController {
 		Scene primaryIncomeScene = new Scene(incomeContainer, 700, 700);
 		appStage.setScene(primaryIncomeScene);		
 	}
+	/**
+	 * Helper method for getIncome. Handles errors, and returns to the main scene.
+	 * @param mainscene
+	 * @param amountDollars
+	 * @param amountCents
+	 * @param periodNumber
+	 * @param periodTime
+	 * @param name
+	 */
+	
 	
 	void getIncomeHelper(Scene mainscene, TextField amountDollars, TextField amountCents, TextField periodNumber, String periodTime, String name) {
 		incomeErrorLabel.setText("");		
@@ -346,9 +380,20 @@ public class BudgetCalculatorController {
     		}
     		}
 		
+		int incomeCents = 0;
+		int incomeDollars = 0;
+		
+		if (amountCents.getText() != "") {
+			incomeCents = Integer.parseInt(amountCents.getText());
+		}
+		
+		if (amountDollars.getText() != "") {
+			incomeDollars = Integer.parseInt(amountDollars.getText());
+		}
+		
     	if (amountError == false) { 
     		try {
-    			RecurringPayment incomeSource = new RecurringPayment(name, Integer.parseInt(dollarsString), Integer.parseInt(centsString));
+    			RecurringPayment incomeSource = new RecurringPayment(name, incomeDollars, incomeCents);
     			incomeSource.setPeriod(Integer.parseInt(periodNumber.getText()), periodTime);
     			incomeList.addTransaction(incomeSource);
     		} catch (InvalidPaymentException e) {
@@ -360,7 +405,10 @@ public class BudgetCalculatorController {
 	
 		Label savingsErrorLabel = new Label("");		
 		
-
+	/**Allows user to enter their current and target savings. Can be called multiple times to check different time spans and periods.
+	 * @param enterSavings
+	 */
+		
 	@FXML 
 	void getSavings (ActionEvent enterSavings) {
 		Scene mainScene = appStage.getScene();
@@ -421,6 +469,21 @@ public class BudgetCalculatorController {
 	Date startDate = new Date();
 	Date endDate = new Date();
 
+	/**
+	 * Helper method for the getSavings method. Handles errors, and returns to the main scene.
+	 * @param mainScene
+	 * @param startDateDay
+	 * @param startDateMonth
+	 * @param startDateYear
+	 * @param endDateDay
+	 * @param endDateMonth
+	 * @param endDateYear
+	 * @param savingsDollarsTextField
+	 * @param savingsCentsTextField
+	 * @param savedDollarsTextField
+	 * @param savedCentsTextField
+	 */
+	
 	void processSavings(Scene mainScene, ChoiceBox<String> startDateDay, ChoiceBox<String> startDateMonth, TextField startDateYear, ChoiceBox<String> endDateDay, ChoiceBox<String> endDateMonth, TextField endDateYear, TextField savingsDollarsTextField, TextField savingsCentsTextField, TextField savedDollarsTextField, TextField savedCentsTextField) {
 		boolean dateError = false;
 		boolean saveAmountError = false;
@@ -580,6 +643,11 @@ public class BudgetCalculatorController {
 	long currentSavingsAmount = 0;
 	long targetSavingsAmount = 0;
 	
+	/**
+	 * Calculates the total budget of the user, based on what they entered in the extra scenes, and determines if they met their target savings or not.
+	 * @param finalCalc
+	 */
+	
 	public void getFinal(ActionEvent finalCalc) {
 		netIncome = incomeList.getTotalAmount(startDate, endDate);
 		
@@ -594,7 +662,7 @@ public class BudgetCalculatorController {
 		if (budget >= 0) {
 			budgetLabel2.setText("You have met your target savings of $" + (targetSavingsAmount/100) + "." + (targetSavingsAmount%100) + " with a surplus of $" + (budget/100) + "." + (budget%100));
 		} else {
-			budgetLabel2.setText("You were unable to meet your target savings of $" + (targetSavingsAmount/100) + "." + (targetSavingsAmount%100) + " and have a deficit of $" + (budget/100) + "." + (budget%100));
+			budgetLabel2.setText("You were unable to meet your target savings of $" + (targetSavingsAmount/100) + "." + (targetSavingsAmount%100) + " and have a deficit of $" + (-budget/100) + "." + (-budget%100));
 		}
 		
 		
@@ -602,7 +670,7 @@ public class BudgetCalculatorController {
 		System.out.println("Net Expenses: " + netExpense);
 		System.out.println("Current Savings: " + currentSavingsAmount);	
 		System.out.println("Target Savings: " + targetSavingsAmount);	
-		System.out.println("Your final budget is : $" + (budget/100) + "." + (budget%100));
+		System.out.println("Your final budget is : $" + (budget/100) + "." + (Math.abs(budget%100)));
 
 	}
 		
